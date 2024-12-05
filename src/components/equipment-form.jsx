@@ -1,24 +1,26 @@
-import React, {useContext} from 'react';
+import React, {useContext} from "react";
 
-// A form component so the user can alter the dimensions of the project
-function ConfigurationForm() {
+// An equipment component to adjust the equipment of the project.
+function EquipmentForm() {
     return(
         <div className="form-container">
             <div className="form-item">
-                <label>Screen Orientation</label>
+                <label></label>
                 <select>
 
                 </select>
             </div>
             <div className="form-item">
-                <label>Wall Installation</label>
+                <label></label>
                 <select>
 
                 </select>
             </div>
             <div className="form-item">
-                <label>Distance to Floor</label>
-                <input type='number'></input>
+                <label></label>
+                <select>
+
+                </select>
             </div>
             <div className="form-item">
                 <label>Niche Depth</label>
@@ -28,4 +30,4 @@ function ConfigurationForm() {
     )
 }
 
-export default ConfigurationForm;
+export default EquipmentForm;

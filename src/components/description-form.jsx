@@ -1,11 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 
 // A form component so the user can describe the project
-function DescriptionForm({props}) {
-    const [title, setTitle] = useState("");
-    const [designer, setDesigner] = useState("");
-    const [department, setDepartment] = useState("");
-    const [date, setDate] = useState(Date.now());
+function DescriptionForm() {
+    
 
     const handleSubmit = () => {
         e.preventDefault();
@@ -16,7 +13,7 @@ function DescriptionForm({props}) {
             <form onSubmit={handleSubmit}>
                 <div className="form-item">
                     <label>Project Title: </label>
-                    <input type="text" name="title" value={title} onChange={(e) => setEventName(e.target.value)}/>
+                    <input type="text" name="title" value={title} onChange={(e) => setTitle(e.target.value)}/>
                 </div>
                 <div className="form-item">
                     <label>Designer: </label>
@@ -28,7 +25,7 @@ function DescriptionForm({props}) {
                 </div>
                 <div className="form-item">
                     <label>Screen Size: </label>
-                    <input type="text" name="screensize" value={"Fill with props."} readOnly/>
+                    <input type="text" name="screensize" value={"Fill with config context."} readOnly/>
                 </div>
                 <div className="form-item">
                     <label>Date: </label>
