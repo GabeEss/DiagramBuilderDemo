@@ -1,18 +1,20 @@
-import { DescriptionProvider } from "./contexts/description-context";
-import { EquipmentProvider } from "./contexts/equipment-context";
-import { ConfigurationProvider } from "./contexts/configuration-context";
+import React, {useContext} from "react";
+import { DataContext } from "./contexts/data-context";
 
 function App() {
+  const {
+    mediaPlayerData, 
+    mountData, 
+    receptacleData, 
+    screenData} = useContext(DataContext);
+
   return (
-    <DescriptionProvider>
-      <EquipmentProvider>
-        <ConfigurationProvider>
-          <>
-            
-          </>
-        </ConfigurationProvider>
-      </EquipmentProvider>
-    </DescriptionProvider>
+    <>
+      {JSON.stringify(mediaPlayerData)}
+      {/* {JSON.stringify(mountData)} */}
+      {/* {JSON.stringify(receptacleData)} */}
+      {/* {JSON.stringify(screenData)} */}
+    </>
   )
 }
 

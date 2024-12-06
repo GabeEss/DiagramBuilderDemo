@@ -1,8 +1,13 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
+import { DescriptionContext } from "../contexts/description-context";
 
 // A form component so the user can describe the project
 function DescriptionForm() {
-    
+    const {
+        title, setTitle,
+        designer, setDesigner,
+        department, setDepartment,
+        date, setDate } = useContext(DescriptionContext);
 
     const handleSubmit = () => {
         e.preventDefault();
