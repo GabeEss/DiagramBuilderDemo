@@ -4,6 +4,7 @@ import EquipmentForm from "./components/forms/equipment-form";
 import ConfigurationForm from "./components/forms/configuration-form";
 import DescriptionForm from "./components/forms/description-form";
 import DescriptionDisplay from "./components/description-display";
+import SpecificationDisplay from "./components/specification-display";
 
 function App() {
   const {
@@ -24,6 +25,8 @@ function App() {
       <DescriptionForm/>
       <br/>
       <DescriptionDisplay/>
+      <br/>
+      <SpecificationDisplay/>
     </>
   )
 }

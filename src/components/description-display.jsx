@@ -28,12 +28,12 @@ function DescriptionDisplay() {
                 <p>{department}</p>
             </div>
             <div className="display-item">
-                <label>Date</label>
-                <p>{date}</p>
-            </div>
-            <div className="display-item">
                 <label>Screen Size (inches)</label>
                 <p>{screen?.['Screen Size'] || ""}</p>
+            </div>
+            <div className="display-item">
+                <label>Date</label>
+                <p>{date}</p>
             </div>
         </div>
     )
