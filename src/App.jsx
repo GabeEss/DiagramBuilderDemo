@@ -1,5 +1,6 @@
 import React, {useContext} from "react";
 import { DataContext } from "./contexts/data-context";
+import EquipmentForm from "./components/equipment-form";
 
 function App() {
   const {
@@ -10,10 +11,11 @@ function App() {
 
   return (
     <>
-      {JSON.stringify(mediaPlayerData)}
+      {/* {JSON.stringify(mediaPlayerData)} */}
       {/* {JSON.stringify(mountData)} */}
       {/* {JSON.stringify(receptacleData)} */}
       {/* {JSON.stringify(screenData)} */}
+      <EquipmentForm/>
     </>
   )
 }
