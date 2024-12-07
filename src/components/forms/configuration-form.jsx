@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import { ConfigurationContext } from '../contexts/configuration-context';
+import { ConfigurationContext } from '../../contexts/configuration-context';
 
 // A form component so the user can alter the dimensions of the project
 function ConfigurationForm() {
@@ -37,7 +37,7 @@ function ConfigurationForm() {
     }
 
     return(
-        <div className="form-container">
+        <form className="form-container">
             <div className="form-item">
                 <label>Screen Orientation</label>
                 <select onChange={handleOrientationChange} value={orientation}>
@@ -72,7 +72,7 @@ function ConfigurationForm() {
                     max="5"
                 />
             </div>
-        </div>
+        </form>
     )
 }
 

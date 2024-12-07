@@ -1,8 +1,8 @@
 import React, {useContext, useEffect} from "react";
-import { EquipmentContext } from "../contexts/equipment-context";
-import { DataContext } from "../contexts/data-context";
+import { EquipmentContext } from "../../contexts/equipment-context";
+import { DataContext } from "../../contexts/data-context";
 
-// An equipment component to adjust the equipment of the project.
+// A form component to adjust the equipment of the project.
 function EquipmentForm() {
 
     // Context to handle the equipment state

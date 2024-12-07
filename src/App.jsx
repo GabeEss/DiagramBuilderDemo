@@ -1,8 +1,9 @@
 import React, {useContext} from "react";
 import { DataContext } from "./contexts/data-context";
-import EquipmentForm from "./components/equipment-form";
-import ConfigurationForm from "./components/configuration-form";
-import DescriptionForm from "./components/description-form";
+import EquipmentForm from "./components/forms/equipment-form";
+import ConfigurationForm from "./components/forms/configuration-form";
+import DescriptionForm from "./components/forms/description-form";
+import DescriptionDisplay from "./components/description-display";
 
 function App() {
   const {
@@ -17,8 +18,12 @@ function App() {
   return (
     <>
       <EquipmentForm/>
+      <br/>
       <ConfigurationForm/>
+      <br/>
       <DescriptionForm/>
+      <br/>
+      <DescriptionDisplay/>
     </>
   )
 }
