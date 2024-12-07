@@ -9,13 +9,13 @@ import App from './App.jsx'
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <DataProvider>
-      <DescriptionProvider>
-        <EquipmentProvider>
+      <EquipmentProvider>
+        <DescriptionProvider>
           <ConfigurationProvider>
             <App />
           </ConfigurationProvider>
-        </EquipmentProvider>
-      </DescriptionProvider>
+        </DescriptionProvider>
+      </EquipmentProvider>
     </DataProvider>
   </StrictMode>,
 )

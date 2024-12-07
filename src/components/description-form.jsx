@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { DescriptionContext } from "../contexts/description-context";
+import { EquipmentContext } from "../contexts/equipment-context";
 
 // A form component so the user can describe the project
 function DescriptionForm() {
@@ -8,6 +9,10 @@ function DescriptionForm() {
         designer, setDesigner,
         department, setDepartment,
         date, setDate } = useContext(DescriptionContext);
+
+    const {
+        screen
+    } = useContext(EquipmentContext);
 
     const handleSubmit = () => {
         e.preventDefault();
@@ -29,8 +34,8 @@ function DescriptionForm() {
                     <input type="text" name="department" value={department} onChange={(e) => setDepartment(e.target.value)}/>
                 </div>
                 <div className="form-item">
-                    <label>Screen Size: </label>
-                    <input type="text" name="screensize" value={"Fill with config context."} readOnly/>
+                    <label>Screen Size (inches): </label>
+                    <input type="text" name="screensize" value={screen?.['Screen Size'] || ""} disabled/>
                 </div>
                 <div className="form-item">
                     <label>Date: </label>

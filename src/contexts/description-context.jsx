@@ -7,7 +7,7 @@ export const DescriptionProvider = ({children}) => {
     const [title, setTitle] = useState("");
     const [designer, setDesigner] = useState("");
     const [department, setDepartment] = useState("");
-    const [date, setDate] = useState(Date.now());
+    const [date, setDate] = useState((new Date().toISOString().split('T')[0]));
 
     return(
         <DescriptionContext.Provider value={{
