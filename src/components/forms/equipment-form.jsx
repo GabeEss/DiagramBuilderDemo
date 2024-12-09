@@ -1,6 +1,7 @@
 import React, {useContext, useEffect} from "react";
 import { EquipmentContext } from "../../contexts/equipment-context";
 import { DataContext } from "../../contexts/data-context";
+import { ConfigurationContext } from "../../contexts/configuration-context";
 
 // A form component to adjust the equipment of the project.
 function EquipmentForm() {
@@ -20,6 +21,11 @@ function EquipmentForm() {
         receptacleData,
         screenData
     } = useContext(DataContext);
+
+    // Context to adjust floor distance with screen height
+    const {
+        setDistanceFloor, setMinDistanceFloor
+    } = useContext(ConfigurationContext);
 
     // Handles user screen selection
     const handleScreenChange = (event) => {
@@ -73,6 +79,8 @@ function EquipmentForm() {
         setMediaPlayer(mediaPlayerData[0]);
         setMount(mountData[0]);
         setReceptacle(receptacleData[0]);
+        setMinDistanceFloor(screenData[0]?.["Height"] / 2);
+        setDistanceFloor(screenData[0]?.["Height"] / 2);
     }, []);
 
     return(

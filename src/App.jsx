@@ -1,5 +1,6 @@
 import React, {useContext} from "react";
 import { DataContext } from "./contexts/data-context";
+import DiagramDisplay from "./components/diagram-display";
 import EquipmentForm from "./components/forms/equipment-form";
 import ConfigurationForm from "./components/forms/configuration-form";
 import DescriptionForm from "./components/forms/description-form";
@@ -17,17 +18,21 @@ function App() {
   if(!screenData || !receptacleData || !mountData || !mediaPlayerData) return <div>Loading...</div>
 
   return (
-    <>
-      <EquipmentForm/>
-      <br/>
-      <ConfigurationForm/>
-      <br/>
-      <DescriptionForm/>
-      <br/>
+    <div className="app-container">
+      
+      <DiagramDisplay/>
+      <div className="forms-container">
+        <EquipmentForm/>
+        <br/>
+        <ConfigurationForm/>
+        <br/>
+        <DescriptionForm/>
+      </div>
+      {/* <br/>
       <DescriptionDisplay/>
       <br/>
-      <SpecificationDisplay/>
-    </>
+      <SpecificationDisplay/> */}
+    </div>
   )
 }
 

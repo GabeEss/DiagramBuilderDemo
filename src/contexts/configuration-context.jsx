@@ -4,9 +4,10 @@ import { createContext, useState, useEffect } from "react";
 export const ConfigurationContext = createContext();
 
 export const ConfigurationProvider = ({children}) => {
-    const [orientation, setOrientation] = useState("vertical");
+    const [orientation, setOrientation] = useState("horizontal");
     const [niche, setNiche] = useState("flat");
-    const [distanceFloor, setDistanceFloor] = useState(10);
+    const [minDistanceFloor, setMinDistanceFloor] = useState(0);
+    const [distanceFloor, setDistanceFloor] = useState(0);
     const [nicheDepth, setNicheDepth] = useState(0);
 
     // If the nicheDepth is 0, set the niche to flat
@@ -22,6 +23,7 @@ export const ConfigurationProvider = ({children}) => {
             orientation, setOrientation,
             niche, setNiche,
             distanceFloor, setDistanceFloor,
+            minDistanceFloor, setMinDistanceFloor,
             nicheDepth, setNicheDepth
         }}>
             {children}

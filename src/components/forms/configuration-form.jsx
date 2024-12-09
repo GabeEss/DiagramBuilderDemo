@@ -1,5 +1,6 @@
-import React, {useContext} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import { ConfigurationContext } from '../../contexts/configuration-context';
+import { EquipmentContext } from '../../contexts/equipment-context';
 
 // A form component so the user can alter the dimensions of the project
 function ConfigurationForm() {
@@ -9,8 +10,30 @@ function ConfigurationForm() {
         orientation, setOrientation,
         niche,
         distanceFloor, setDistanceFloor,
+        minDistanceFloor, setMinDistanceFloor,
         nicheDepth, setNicheDepth
     } = useContext(ConfigurationContext);
+
+    // Get screen
+    const {
+        screen
+    } = useContext(EquipmentContext);
+
+    // Initialize the distanceFloor with distanceToCenterX/Y
+    useEffect(() => {
+        const distanceToCenterX = screen?.["Width"] / 2;
+        const distanceToCenterY = screen?.["Height"] / 2;
+
+        // If screen is horisontal, distance to floor is the height
+        // If screen is vertical, distance to floor is the width
+        if (orientation === 'horizontal') {
+            setDistanceFloor(distanceToCenterY);
+            setMinDistanceFloor(distanceToCenterY);
+        } else if (orientation === 'vertical') {
+            setDistanceFloor(distanceToCenterX);
+            setMinDistanceFloor(distanceToCenterX);
+        }
+    }, [screen, orientation]);
 
     const handleOrientationChange = (e) => {
         e.preventDefault();
@@ -19,9 +42,8 @@ function ConfigurationForm() {
 
     const handleFloorChange = (e) => {
         const value = parseFloat(e.target.value);
-
-        // From 0 - 50 inches range
-        if(value >= 0 && value <= 50) {
+        // From floor to 60 inches range
+        if(value >= minDistanceFloor || 0 && value <= 60) {
             setDistanceFloor(value);
         }
     }
@@ -53,13 +75,13 @@ function ConfigurationForm() {
                 </select>
             </div>
             <div className="form-item">
-                <label>Distance to Floor (inches)</label>
+                <label>Distance from Center to Floor (inches)</label>
                 <input 
                     type='number' 
-                    onChange={handleFloorChange} 
-                    value={distanceFloor} 
-                    min="0"
-                    max="50"
+                    onChange={handleFloorChange}
+                    value={distanceFloor || 0} 
+                    min={minDistanceFloor || 0}
+                    max="60"
                 />
             </div>
             <div className="form-item">
