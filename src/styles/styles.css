@@ -9,11 +9,17 @@
     width: 100vw;
 }
 
+.app {
+    height: 100%;
+    width: 100%;
+}
+
 .app-container {
     height: 100%;
     width: 100%;
     display: grid;
     grid-template-columns: 3fr 1fr;
+    padding-bottom: 5em;
 }
 
 .forms-container {
@@ -25,19 +31,13 @@
     margin: 1em;
 }
 
-.diagram-container {
+.display-container {
+    display: grid;
+    grid-template-columns: 3fr;
+    grid-template-rows: 2fr;
+}
+
+.display-item {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid black;
-    margin: 1em;
-}
-
-.diagram-display {
-    
-}
-
-.screen-center {
-    
+    gap: .2em;
 }

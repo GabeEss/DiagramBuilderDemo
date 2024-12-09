@@ -11,63 +11,67 @@ function SpecificationDisplay() {
     } = useContext(EquipmentContext);
 
     return(
-        <div className='specification-display'>
-            <div className='display-item'>
+        <div className='specification-display spec' style={{
+            // position: "absolute",
+            display: 'flex',
+            flexDirection: "column"
+        }}>
+            <div className='display-container'>
                 <label>Screen Specifications</label>
-                <div>
+                <div className='display-item'>
                     <label>Height (in): </label>
                     <p>{screen?.['Height']}</p>
                 </div>
-                <div>
+                <div className='display-item'>
                     <label>Width (in): </label>
                     <p>{screen?.['Width']}</p>
                 </div>
-                <div>
+                <div className='display-item'>
                     <label>Depth (in): </label>
                     <p>{screen?.['Depth']}</p>
                 </div>
             </div>
-            <div className='display-item'>
+            <div className='display-container'>
                 <label>Mount Specifications</label>
-                <div>
+                <div className='display-item'>
                     <label>Height (in): </label>
                     <p>{mount?.['Height (in)']}</p>
                 </div>
-                <div>
+                <div className='display-item'>
                     <label>Width (in): </label>
                     <p>{mount?.['Width (in)']}</p>
                 </div>
-                <div>
+                <div className='display-item'>
                     <label>Depth (in): </label>
                     <p>{mount?.['Depth (in)']}</p>
                 </div>
             </div>
-            <div className='display-item'>
+            <div className='display-container'>
                 <label>Media Player Specifications</label>
-                <div>
+                <div className='display-item'>
                     <label>Height (in): </label>
                     <p>{mediaPlayer?.['Height']}</p>
                 </div>
-                <div>
+                <div className='display-item'>
                     <label>Width (in): </label>
                     <p>{mediaPlayer?.['Width']}</p>
                 </div>
-                <div>
+                <div className='display-item'>
                     <label>Depth (in): </label>
                     <p>{mediaPlayer?.['Depth']}</p>
                 </div>
             </div>
-            <div className='display-item'>
+            <div className='display-container'>
                 <label>Receptacle Specifications</label>
-                <div>
+                <div className='display-item'>
                     <label>Height (in): </label>
                     <p>{receptacle?.['Height (in)']}</p>
                 </div>
-                <div>
+                <div className='display-item'>
                     <label>Width (in): </label>
                     <p>{receptacle?.['Width (in)']}</p>
                 </div>
-                <div>
+                <div className='display-item'>
                     <label>Depth (in): </label>
                     <p>{receptacle?.['Depth (in)']}</p>
                 </div>

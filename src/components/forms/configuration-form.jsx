@@ -11,27 +11,41 @@ function ConfigurationForm() {
         niche,
         distanceFloor, setDistanceFloor,
         minDistanceFloor, setMinDistanceFloor,
-        nicheDepth, setNicheDepth
+        nicheDepth, setNicheDepth,
     } = useContext(ConfigurationContext);
+
+    const [maxHeight, setMaxHeight] = useState(55);
 
     // Get screen
     const {
-        screen
+        screen,
     } = useContext(EquipmentContext);
 
     // Initialize the distanceFloor with distanceToCenterX/Y
     useEffect(() => {
         const distanceToCenterX = screen?.["Width"] / 2;
         const distanceToCenterY = screen?.["Height"] / 2;
-
+        
         // If screen is horisontal, distance to floor is the height
         // If screen is vertical, distance to floor is the width
         if (orientation === 'horizontal') {
             setDistanceFloor(distanceToCenterY);
             setMinDistanceFloor(distanceToCenterY);
+
+            // Arbitrary max height
+            if(minDistanceFloor > 55)
+                setMaxHeight(minDistanceFloor + 55);
+            else
+                setMaxHeight(55);
         } else if (orientation === 'vertical') {
             setDistanceFloor(distanceToCenterX);
             setMinDistanceFloor(distanceToCenterX);
+
+            // Arbitrary max height
+            if(minDistanceFloor > 55)
+                setMaxHeight(minDistanceFloor + 55);
+            else
+                setMaxHeight(55);
         }
     }, [screen, orientation]);
 
@@ -44,7 +58,7 @@ function ConfigurationForm() {
         const value = parseFloat(e.target.value);
         // From floor to 55 inches range, removing the maximum will cause the page to stretch
         // with larger distance inputs
-        if(value >= minDistanceFloor && value <= (minDistanceFloor + minDistanceFloor)) {
+        if(value >= minDistanceFloor && value <= maxHeight) {
             setDistanceFloor(value);
         }
     }
@@ -82,7 +96,7 @@ function ConfigurationForm() {
                     onChange={handleFloorChange}
                     value={distanceFloor || 0} 
                     min={minDistanceFloor || 0}
-                    max={minDistanceFloor + (minDistanceFloor)}
+                    max={maxHeight}
                 />
             </div>
             <div className="form-item">

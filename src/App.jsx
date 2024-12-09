@@ -18,20 +18,22 @@ function App() {
   if(!screenData || !receptacleData || !mountData || !mediaPlayerData) return <div>Loading...</div>
 
   return (
-    <div className="app-container">
-      
-      <DiagramDisplay/>
-      <div className="forms-container">
-        <EquipmentForm/>
-        <br/>
-        <ConfigurationForm/>
-        <br/>
-        <DescriptionForm/>
+    <div className="app">
+      <div className="app-container"> 
+        <DiagramDisplay/>
+        <div className="forms-container">
+          <EquipmentForm/>
+          <br/>
+          <ConfigurationForm/>
+          <br/>
+          <DescriptionForm/>
+          <br/>
+        </div>
       </div>
-      {/* <br/>
-      <DescriptionDisplay/>
-      <br/>
-      <SpecificationDisplay/> */}
+      <label style={{
+        position: "absolute",
+        transform: 'translateY(-500%) translateX(50%)',
+      }}>Floor</label>
     </div>
   )
 }

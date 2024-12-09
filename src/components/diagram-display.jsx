@@ -1,6 +1,8 @@
 import React, {useState, useEffect, useContext} from "react";
 import { ConfigurationContext } from "../contexts/configuration-context";
 import { EquipmentContext } from "../contexts/equipment-context";
+import DescriptionDisplay from "./description-display";
+import SpecificationDisplay from "./specification-display";
 
 function DiagramDisplay() {
     const {
@@ -27,7 +29,7 @@ function DiagramDisplay() {
     // Adjust the scalingFactor context
     const adjustScale = () => {
             // If the screen height/width is over 200 inches, scale down.
-            // If the screen height/width is over 100 inches, scale down
+            // If the screen height/width is over 100 inches, scale up slightly
             // If the sceen is below 100 inches, scale the image up for visibility.
             if(screen?.['Height'] > 200 || screen?.["Width"] > 200)
                 setScalingFactor(.8);
@@ -66,36 +68,36 @@ function DiagramDisplay() {
         }}>
             <div className="floor-screen-container" style={{
                 display: "grid",
-                gridTemplateColumns: "1fr 3fr",
+                gridTemplateColumns: "1fr 1fr 3fr",
                 gridTemplateRows: "1fr auto",
                 height: "100%",
             }}>
+                <div className="specification-position" style={{
+                    gridColumn: "1",
+                    gridRow: "1",
+                    display: "flex",
+                    flexDirection: 'column'
+                }}>
+                    <DescriptionDisplay/>
+                    <SpecificationDisplay/>
+                </div>
                 <div className="floor-distance-container" style={{
-                    gridColumn: "1 / -1",
+                    gridColumn: "2",
                     gridRow: "1",
                     alignSelf: "end",
                     marginLeft: "20px",
                 }}>
                     {/* Add 1/4 the nicheDepth to adjust the new height from floor to center*/}
-                    <label style={{padding: "5px"}}>{(distanceFloor + (nicheDepth/4)).toFixed(2)} (in)</label>
+                    <label style={{paddingRight: "10em"}}>{(distanceFloor + (nicheDepth/4)).toFixed(2)} (in)</label>
                     <div className="floor-distance" style={{
                         borderLeft: "1px solid red",
-                        borderTop: "1px solid red",
+                        // borderTop: "1px solid red",
                         height: `${floorHeight}px`,
                     }}/>
                 </div>
-                {/* RECEPTACLE BOX ABOVE THE NICHE*/}
-                {/* <div className="floor" style={{
-                    borderTop: "1px solid black",
-                    height: "50px",
-                    width: "100%",
-                    flexShrink: "0",
-                    gridColumn: "1 / 3",
-                    gridRow: "2",
-                }}/> */}
                 <div className="niche-display" style={{
                     gridRow: "1",
-                    gridColumn: "2 / 3",
+                    gridColumn: "3",
                     alignSelf: "end",
                     marginRight: "1em",
                     marginBottom: `${pushScreen}px`,
@@ -109,7 +111,7 @@ function DiagramDisplay() {
                         transform: "translateX(-110%) translateY(-60%)",
                     }}><p>Niche: </p>{ (nicheDepth / 4).toFixed(2)} (in)</label> : ""}
                     <div className="diagram-display" style={{
-                        border: "4px solid black",
+                        border: "2px solid black",
                         height: `${orientation == "horizontal" ? screenHeight : screenWidth}`,
                         width: `${orientation == "horizontal" ? screenWidth : screenHeight}`,
                         display: "grid",
@@ -146,17 +148,31 @@ function DiagramDisplay() {
                                     <p>Width: {orientation == "horizontal" ? screen?.["Width"] : screen?.["Height"]} (in)</p>
                             </label>
                         </div>
-                        <div className="power-outlet" style={{
+                        {mount ? <div className="mount" style={{
                             position: "absolute",
-                            width: "50px",
-                            height: "50px",
+                            border: "1px solid blue",
+                            alignSelf: "center",
+                            justifySelf: "center",
+                            width: `${mount["Width (in)"] * scalingFactor}px`,
+                            height: `${mount["Height (in)"] * scalingFactor}px`,
+                        }}/> : ""}
+                        <div className="receptacle-niche" style={{
+                            position: "absolute",
                             border: "1px dashed black",
                             alignSelf: "center",
-                            justifySelf: "center"
-                        }}/>
+                            justifySelf: "center",
+                            padding: `${(receptacle["Depth (in)"] / 4) * scalingFactor}px`
+                        }}>
+                            <div className="receptacle" style={{
+                                border: "1px dashed black",
+                                width: `${receptacle["Width (in)"] * scalingFactor}px`,
+                                height: `${receptacle["Height (in)"] * scalingFactor}px`,
+                            }}/>
+                        </div>
                     </div>
                 </div>
             </div>
+            <br/>
         </div>   
     )
 }

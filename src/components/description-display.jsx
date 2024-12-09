@@ -14,7 +14,9 @@ function DescriptionDisplay() {
     } = useContext(EquipmentContext);
 
     return(
-        <div className="description-display">
+        <div className="description-display" style={{
+            // position: "absolute",
+        }}>
             <div className="display-item">
                 <label>Project Title</label>
                 <h2>{title}</h2>
