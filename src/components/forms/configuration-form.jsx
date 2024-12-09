@@ -44,7 +44,7 @@ function ConfigurationForm() {
         const value = parseFloat(e.target.value);
         // From floor to 55 inches range, removing the maximum will cause the page to stretch
         // with larger distance inputs
-        if(value >= minDistanceFloor && value <= 55) {
+        if(value >= minDistanceFloor && value <= (minDistanceFloor + minDistanceFloor)) {
             setDistanceFloor(value);
         }
     }
@@ -82,7 +82,7 @@ function ConfigurationForm() {
                     onChange={handleFloorChange}
                     value={distanceFloor || 0} 
                     min={minDistanceFloor || 0}
-                    max="55"
+                    max={minDistanceFloor + (minDistanceFloor)}
                 />
             </div>
             <div className="form-item">

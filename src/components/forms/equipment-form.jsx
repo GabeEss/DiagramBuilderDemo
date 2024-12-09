@@ -22,9 +22,9 @@ function EquipmentForm() {
         screenData
     } = useContext(DataContext);
 
-    // Context to adjust floor distance with screen height
+    // Context to adjust floor distance with screen height and screen scale
     const {
-        setDistanceFloor, setMinDistanceFloor
+        setDistanceFloor, setMinDistanceFloor, setScalingFactor
     } = useContext(ConfigurationContext);
 
     // Handles user screen selection
@@ -81,6 +81,7 @@ function EquipmentForm() {
         setReceptacle(receptacleData[0]);
         setMinDistanceFloor(screenData[0]?.["Height"] / 2);
         setDistanceFloor(screenData[0]?.["Height"] / 2);
+        setScalingFactor(6);
     }, []);
 
     return(

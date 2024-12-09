@@ -15,6 +15,7 @@ function DiagramDisplay() {
         distanceFloor,
         minDistanceFloor,
         nicheDepth,
+        scalingFactor, setScalingFactor
     } = useContext(ConfigurationContext);
 
     // Measurement adjustment stored here for css
@@ -23,30 +24,44 @@ function DiagramDisplay() {
     const [floorHeight, setFloorHeight] = useState('auto');
     const [pushScreen, setPushScreen] = useState('auto');
 
-    // Scale to make diagram visible
-    const SCALING_FACTOR = 6;
+    // Adjust the scalingFactor context
+    const adjustScale = () => {
+            // If the screen height/width is over 200 inches, scale down.
+            // If the screen height/width is over 100 inches, scale down
+            // If the sceen is below 100 inches, scale the image up for visibility.
+            if(screen?.['Height'] > 200 || screen?.["Width"] > 200)
+                setScalingFactor(.8);
+            else if(screen?.['Height'] > 100 || screen?.["Width"] > 100)
+                setScalingFactor(2);
+            else
+                setScalingFactor(6);
+    }
 
     // When screen changes, adjust height, width, and scale the min height from floor to center.
     // Note that the floorHeight does not have a px addendum at the end
     useEffect(() => {
         if(screen?.['Height'] && screen?.['Width']) {
-            setScreenHeight(`${screen['Height'] * SCALING_FACTOR}px`);
-            setScreenWidth(`${screen['Width'] * SCALING_FACTOR}px`);
-            setFloorHeight(`${(minDistanceFloor + (nicheDepth/4)) * SCALING_FACTOR}`);
-            setPushScreen(`${(distanceFloor + (nicheDepth/4)) * SCALING_FACTOR}`);
+            adjustScale();
+            setScreenHeight(`${screen['Height'] * scalingFactor}px`);
+            setScreenWidth(`${screen['Width'] * scalingFactor}px`);
+            setFloorHeight(`${(minDistanceFloor + (nicheDepth/4)) * scalingFactor}`);
+            setPushScreen(`${(distanceFloor + (nicheDepth/4)) * scalingFactor}`);
         } else setScreenHeight('auto');
     }, [screen]);
 
     // Line to measure floor height must change with nicheDepth
     // Screen gets pushed by the niche-display container as nicheDepth increases through inline styling
     useEffect(() => {
-        setFloorHeight(`${(distanceFloor + (nicheDepth/4)) * SCALING_FACTOR}`);
-        setPushScreen(`${(distanceFloor - minDistanceFloor) * SCALING_FACTOR }`);
+        adjustScale();
+        setScreenHeight(`${screen['Height'] * scalingFactor}px`);
+        setScreenWidth(`${screen['Width'] * scalingFactor}px`);
+        setFloorHeight(`${(distanceFloor + (nicheDepth/4)) * scalingFactor}`);
+        setPushScreen(`${(distanceFloor - minDistanceFloor) * scalingFactor }`);
     }, [distanceFloor, nicheDepth]);
     
     return(
         <div className="pdf-container" style={{
-            border: "1px solid black",
+            borderBottom: "1px solid black",
             margin: "1em",
         }}>
             <div className="floor-screen-container" style={{
@@ -55,16 +70,17 @@ function DiagramDisplay() {
                 gridTemplateRows: "1fr auto",
                 height: "100%",
             }}>
-                <div style={{
+                <div className="floor-distance-container" style={{
                     gridColumn: "1 / -1",
                     gridRow: "1",
                     alignSelf: "end",
                     marginLeft: "20px",
                 }}>
                     {/* Add 1/4 the nicheDepth to adjust the new height from floor to center*/}
-                    <label style={{padding: "5px"}}>{distanceFloor + (nicheDepth/4)} (in)</label>
+                    <label style={{padding: "5px"}}>{(distanceFloor + (nicheDepth/4)).toFixed(2)} (in)</label>
                     <div className="floor-distance" style={{
                         borderLeft: "1px solid red",
+                        borderTop: "1px solid red",
                         height: `${floorHeight}px`,
                     }}/>
                 </div>
@@ -84,14 +100,14 @@ function DiagramDisplay() {
                     marginRight: "1em",
                     marginBottom: `${pushScreen}px`,
                     border: "1px solid black",
-                    padding: `${(nicheDepth / 4) * SCALING_FACTOR}px`,
+                    padding: `${(nicheDepth / 4) * scalingFactor}px`,
                     width: "fit-content"
                 }}>
-                    {nicheDepth > 0 ? <label style={{
+                    {nicheDepth > 0 ? <label className="niche-depth-label" style={{
                         position: "absolute",
                         display: "flex",
                         transform: "translateX(-110%) translateY(-60%)",
-                    }}><p>Niche: </p>{ (nicheDepth / 4)} (in)</label> : ""}
+                    }}><p>Niche: </p>{ (nicheDepth / 4).toFixed(2)} (in)</label> : ""}
                     <div className="diagram-display" style={{
                         border: "4px solid black",
                         height: `${orientation == "horizontal" ? screenHeight : screenWidth}`,
@@ -107,7 +123,7 @@ function DiagramDisplay() {
                             width: "100%",
                             backgroundColor: "red"
                         }}>
-                            <label style={{
+                            <label className="screen-height-label" style={{
                                 position: "absolute",
                                 display: "flex",
                                 transform: "translateX(-120%) translateY(-50%)",
@@ -122,7 +138,7 @@ function DiagramDisplay() {
                             width: "1px",
                             backgroundColor: "red"
                         }}>
-                            <label style={{
+                            <label className="screen-width-label" style={{
                                     position: "absolute",
                                     display: "flex",
                                     transform: "translateX(-60%) translateY(-160%)",
@@ -130,6 +146,14 @@ function DiagramDisplay() {
                                     <p>Width: {orientation == "horizontal" ? screen?.["Width"] : screen?.["Height"]} (in)</p>
                             </label>
                         </div>
+                        <div className="power-outlet" style={{
+                            position: "absolute",
+                            width: "50px",
+                            height: "50px",
+                            border: "1px dashed black",
+                            alignSelf: "center",
+                            justifySelf: "center"
+                        }}/>
                     </div>
                 </div>
             </div>

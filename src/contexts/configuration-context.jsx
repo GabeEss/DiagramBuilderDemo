@@ -10,6 +10,9 @@ export const ConfigurationProvider = ({children}) => {
     const [distanceFloor, setDistanceFloor] = useState(0);
     const [nicheDepth, setNicheDepth] = useState(0);
 
+    // The scaling that needs to be done to fit all the screens within the pdf container
+    const [scalingFactor, setScalingFactor] = useState(0);
+
     // If the nicheDepth is 0, set the niche to flat
     useEffect(() => {
         if(nicheDepth === 0) 
@@ -24,7 +27,8 @@ export const ConfigurationProvider = ({children}) => {
             niche, setNiche,
             distanceFloor, setDistanceFloor,
             minDistanceFloor, setMinDistanceFloor,
-            nicheDepth, setNicheDepth
+            nicheDepth, setNicheDepth,
+            scalingFactor, setScalingFactor
         }}>
             {children}
         </ConfigurationContext.Provider>
