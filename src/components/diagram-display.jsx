@@ -32,8 +32,8 @@ function DiagramDisplay() {
         if(screen?.['Height'] && screen?.['Width']) {
             setScreenHeight(`${screen['Height'] * SCALING_FACTOR}px`);
             setScreenWidth(`${screen['Width'] * SCALING_FACTOR}px`);
-            setFloorHeight(`${(minDistanceFloor + nicheDepth) * SCALING_FACTOR}`);
-            setPushScreen(`${(distanceFloor + nicheDepth) * SCALING_FACTOR}`);
+            setFloorHeight(`${(minDistanceFloor + (nicheDepth/4)) * SCALING_FACTOR}`);
+            setPushScreen(`${(distanceFloor + (nicheDepth/4)) * SCALING_FACTOR}`);
         } else setScreenHeight('auto');
     }, [screen]);
 
