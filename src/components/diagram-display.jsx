@@ -4,7 +4,7 @@ import { EquipmentContext } from "../contexts/equipment-context";
 import DescriptionDisplay from "./description-display";
 import SpecificationDisplay from "./specification-display";
 
-function DiagramDisplay() {
+function DiagramDisplay({pdfContainerRef}) {
     const {
         screen,
         mount,
@@ -62,7 +62,7 @@ function DiagramDisplay() {
     }, [distanceFloor, nicheDepth]);
     
     return(
-        <div className="pdf-container" style={{
+        <div ref={pdfContainerRef} className="pdf-container" style={{
             borderBottom: "1px solid black",
             margin: "1em",
         }}>

@@ -1,11 +1,10 @@
-import React, {useContext} from "react";
+import React, {useRef, useContext} from "react";
 import { DataContext } from "./contexts/data-context";
 import DiagramDisplay from "./components/diagram-display";
 import EquipmentForm from "./components/forms/equipment-form";
 import ConfigurationForm from "./components/forms/configuration-form";
 import DescriptionForm from "./components/forms/description-form";
-import DescriptionDisplay from "./components/description-display";
-import SpecificationDisplay from "./components/specification-display";
+import DownloadButton from "./components/download-button";
 
 function App() {
   const {
@@ -14,13 +13,15 @@ function App() {
     receptacleData, 
     screenData} = useContext(DataContext);
 
+    const pdfContainerRef = useRef(null);
+
   // While data is not defined, loading element
   if(!screenData || !receptacleData || !mountData || !mediaPlayerData) return <div>Loading...</div>
 
   return (
     <div className="app">
       <div className="app-container"> 
-        <DiagramDisplay/>
+        <DiagramDisplay pdfContainerRef={pdfContainerRef}/>
         <div className="forms-container">
           <EquipmentForm/>
           <br/>
@@ -28,12 +29,13 @@ function App() {
           <br/>
           <DescriptionForm/>
           <br/>
+          <DownloadButton pdfContainerRef={pdfContainerRef}/>
         </div>
       </div>
-      <label style={{
+      {/* <label style={{
         position: "absolute",
         transform: 'translateY(-500%) translateX(50%)',
-      }}>Floor</label>
+      }}>Floor</label> */}
     </div>
   )
 }
