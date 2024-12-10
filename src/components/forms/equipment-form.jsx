@@ -44,7 +44,7 @@ function EquipmentForm() {
         event.preventDefault();
         const selectedMountMFG = event.target.value;
 
-        if(selectedMountMFG === "deselect") setMount("");
+        // if(selectedMountMFG === "deselect") setMount("");
 
         // Find mount object
         const selectedMount = mountData.find(mount => 
@@ -79,7 +79,7 @@ function EquipmentForm() {
     useEffect(() => {
         setScreen(screenData[0]);
         setMediaPlayer(mediaPlayerData[0]);
-        // setMount(mountData[0]);
+        setMount(mountData[0]);
         setReceptacle(receptacleData[0]);
         setMinDistanceFloor(screenData[0]?.["Height"] / 2);
         setDistanceFloor(screenData[0]?.["Height"] / 2);
@@ -101,7 +101,7 @@ function EquipmentForm() {
             <div className="form-item">
                 <label>Mount</label>
                 <select onChange={handleMountChange} value={mount?.['MFG. PART']}>
-                    <option value={"deselect"}>Mount Screen</option>
+                    {/* <option value={"deselect"}>Mount Screen</option> */}
                     {mountData.map((mount, index) => (
                         <option key={index} value={mount?.['MFG. PART']}>
                             {mount?.['MFG. PART']} {mount?.['Brand']}

@@ -1,5 +1,6 @@
 import React, {useContext} from 'react';
 import { EquipmentContext } from '../contexts/equipment-context';
+import { ConfigurationContext } from '../contexts/configuration-context';
 
 // A component to display the project's specifications.
 function SpecificationDisplay() {
@@ -9,6 +10,11 @@ function SpecificationDisplay() {
         mediaPlayer,
         receptacle
     } = useContext(EquipmentContext);
+
+    const {
+        nicheDepth,
+        minDistanceFloor
+    } = useContext(ConfigurationContext);
 
     return(
         <div className='specification-display spec' style={{
@@ -74,6 +80,17 @@ function SpecificationDisplay() {
                 <div className='display-item'>
                     <label>Depth (in): </label>
                     <p>{receptacle?.['Depth (in)']}</p>
+                </div>
+            </div>
+            <div className='display-container'>
+                <label>Other Specifications</label>
+                <div className='display-item'>
+                    <label>Variable Niche (in): </label>
+                    <p>{nicheDepth}</p>
+                </div>
+                <div className='display-item'>
+                    <label>Minimum Floor Distance (in): </label>
+                    <p>{minDistanceFloor}</p>
                 </div>
             </div>
         </div>

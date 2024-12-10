@@ -12,13 +12,17 @@ export const ConfigurationProvider = ({children}) => {
 
     // The scaling that needs to be done to fit all the screens within the pdf container
     const [scalingFactor, setScalingFactor] = useState(0);
+    // The totalNicheDepth will include:
+    // Screen depth + Max(Media player depth, Mount depth) + Depth variance
+    const [totalNicheDepth, setTotalNicheDepth] = useState(0);
 
-    // If the nicheDepth is 0, set the niche to flat
     useEffect(() => {
-        if(nicheDepth === 0) 
-            setNiche("flat");
-        else
-            setNiche("niche");
+        if(niche === "flat") setNicheDepth(0);
+    }, [niche]);
+
+    useEffect(() => {
+        if(nicheDepth > 0) setNiche("niche");
+        if(nicheDepth == 0) setNiche('flat');
     }, [nicheDepth]);
     
     return(
@@ -28,7 +32,8 @@ export const ConfigurationProvider = ({children}) => {
             distanceFloor, setDistanceFloor,
             minDistanceFloor, setMinDistanceFloor,
             nicheDepth, setNicheDepth,
-            scalingFactor, setScalingFactor
+            scalingFactor, setScalingFactor,
+            totalNicheDepth, setTotalNicheDepth
         }}>
             {children}
         </ConfigurationContext.Provider>

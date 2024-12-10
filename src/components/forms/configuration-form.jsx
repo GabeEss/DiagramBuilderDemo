@@ -8,7 +8,7 @@ function ConfigurationForm() {
     // Context to handle the configuration state
     const {
         orientation, setOrientation,
-        niche,
+        niche, setNiche,
         distanceFloor, setDistanceFloor,
         minDistanceFloor, setMinDistanceFloor,
         nicheDepth, setNicheDepth,
@@ -62,13 +62,17 @@ function ConfigurationForm() {
             setDistanceFloor(value);
         }
     }
+
+    const handleNicheChange = (e) => {
+        setNiche(e.target.value);
+    }
     
     // Changing the depth will change the value of the wall installation in the config context
     const handleDepthChange = (e) => {
         const value = parseFloat(e.target.value);
 
         // From 0 - 5 inches range
-        if(value >= 0 && value <= 5) {
+        if(value >= 6 && value <= 8) {
             setNicheDepth(value);
         }
     }
@@ -84,7 +88,7 @@ function ConfigurationForm() {
             </div>
             <div className="form-item">
                 <label>Wall Installation</label>
-                <select value={niche} disabled>
+                <select value={niche} onChange={handleNicheChange}>
                     <option value={"flat"}>Flat</option>
                     <option value={"niche"}>Niche</option>
                 </select>
@@ -105,8 +109,8 @@ function ConfigurationForm() {
                     type="number" 
                     onChange={handleDepthChange} 
                     value={nicheDepth} 
-                    min="0"
-                    max="5"
+                    min="6"
+                    max="8"
                 />
             </div>
         </form>

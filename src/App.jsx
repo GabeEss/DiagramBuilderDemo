@@ -32,10 +32,6 @@ function App() {
           <DownloadButton pdfContainerRef={pdfContainerRef}/>
         </div>
       </div>
-      {/* <label style={{
-        position: "absolute",
-        transform: 'translateY(-500%) translateX(50%)',
-      }}>Floor</label> */}
     </div>
   )
 }
