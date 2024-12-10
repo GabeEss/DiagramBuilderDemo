@@ -18,26 +18,155 @@
     height: 100%;
     width: 100%;
     display: grid;
-    grid-template-columns: 3fr 1fr;
-    padding-bottom: 5em;
+    grid-template-columns: 4fr 1fr;
+    padding-bottom: 4em;
 }
 
+/* FORMS STYLING */
+
 .forms-container {
-    border: 1px solid black;
-    margin: 1em;
+    grid-column: 2/3;
+    border: 1px solid #ccc;
+    margin: .5em;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, .1);
 }
 
 .form-container {
-    margin: 1em;
+}
+
+.form-item {
+    display: flex;
+    flex-direction: column;
+    border-radius: 8px;
+    border: none;
+}
+
+.form-item label {
+    width: 100%;
+    font-weight: bold;
+    font-size: 1.1em;
+    color: #333;
+    margin-right: .5em;
+    background-color: rgb(216, 216, 248);
+    padding: .2em;
+}
+
+.form-item select {
+    font-size: .9em;
+    transition: background-color .2s ease;
+    border: none;
+}
+
+.form-item input {
+    font-size: 1em;
+    transition: background-color .2s ease;
+    border: none;
+}
+
+.download-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 1em;
+    padding-bottom: 1em;
+}
+
+.download {
+    background-color: rgb(216, 216, 248);
+    border: none;
+    padding: 10px 15px;
+    transition: background-color .2s ease;
+    text-align: center;
+    border-radius: 8px;
+}
+
+.form-item input:hover, .form-item select:hover {
+    background-color: #f0f0f0;
+}
+
+.download:hover {
+    background-color: rgb(187, 187, 255);
+}
+
+/*  DESCRIPTION STYLING FOR GRID POSITION CHECK diagram-display.jsx */
+
+.description-display {
+    /* border: 1px solid #ccc; */
+    /* border-radius: 8px; */
+    /* box-shadow: 0 4px 8px rgba(0, 0, 0, .1); */
+    /* padding: .5em; */
+    margin-bottom: 1em;
+    display: flex;
+    flex-direction: column;
+}
+
+.description-item {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: .2em;
+    padding-bottom: .2em;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin-bottom: .4em;
+}
+
+.description-item label {
+    /* border: 1px solid #ccc; */
+    width: 100%;
+    font-weight: bold;
+    color: #333;
+    margin-right: .5em;
+    background-color: #f0f0f0;
+    padding: .2em;
+}
+
+.description-item p {
+    padding: .2em;
+}
+
+/* SPECIFICATION STYLING FOR GRID POSITION CHECK diagram-display.jsx*/
+
+.specification-display {
+    /* border: 1px solid #ccc; */
+    /* border-radius: 8px; */
+    /* box-shadow: 0 4px 8px rgba(0, 0, 0, .1); */
+    margin-bottom: 1em;
+    display: flex;
+    flex-direction: column;
 }
 
 .display-container {
     display: grid;
     grid-template-columns: 3fr;
     grid-template-rows: 2fr;
+    width: 100%;
+    gap: .2em;
+    padding-bottom: .2em;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin-bottom: .4em;
+}
+
+.specification-label {
+    width: 100%;
+    font-weight: bold;
+    color: #333;
+    margin-right: .5em;
+    background-color: #f5f5dc;
+    padding: .2em;
+}
+
+.display-items {
+    display: flex;
+    width: 100%;
+    padding: .2em;
 }
 
 .display-item {
     display: flex;
-    gap: .2em;
+    width: 100%;
 }
+
+/* FOR PDF CONTAINER AND DIAGRAM CONTAINER CHECK INSIDE diagram-display.jsx*/

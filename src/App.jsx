@@ -15,7 +15,7 @@ function App() {
 
     const pdfContainerRef = useRef(null);
 
-  // While data is not defined, loading element
+  // While data is not defined, show loading element
   if(!screenData || !receptacleData || !mountData || !mediaPlayerData) return <div>Loading...</div>
 
   return (
@@ -24,12 +24,11 @@ function App() {
         <DiagramDisplay pdfContainerRef={pdfContainerRef}/>
         <div className="forms-container">
           <EquipmentForm/>
-          <br/>
           <ConfigurationForm/>
-          <br/>
           <DescriptionForm/>
-          <br/>
-          <DownloadButton pdfContainerRef={pdfContainerRef}/>
+          <div className="download-container">
+            <DownloadButton pdfContainerRef={pdfContainerRef}/>
+          </div>
         </div>
       </div>
     </div>

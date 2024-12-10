@@ -33,19 +33,19 @@ function ConfigurationForm() {
             setMinDistanceFloor(distanceToCenterY);
 
             // Arbitrary max height
-            if(minDistanceFloor > 55)
-                setMaxHeight(minDistanceFloor + 55);
+            if(minDistanceFloor > 50)
+                setMaxHeight(minDistanceFloor + 50);
             else
-                setMaxHeight(55);
+                setMaxHeight(50);
         } else if (orientation === 'vertical') {
             setDistanceFloor(distanceToCenterX);
             setMinDistanceFloor(distanceToCenterX);
 
             // Arbitrary max height
-            if(minDistanceFloor > 55)
-                setMaxHeight(minDistanceFloor + 55);
+            if(minDistanceFloor > 50)
+                setMaxHeight(minDistanceFloor + 50);
             else
-                setMaxHeight(55);
+                setMaxHeight(50);
         }
     }, [screen, orientation]);
 
@@ -94,7 +94,7 @@ function ConfigurationForm() {
                 </select>
             </div>
             <div className="form-item">
-                <label>Distance from Center to Floor (inches)</label>
+                <label>Distance from Center to Floor (in)</label>
                 <input 
                     type='number' 
                     onChange={handleFloorChange}
@@ -104,7 +104,7 @@ function ConfigurationForm() {
                 />
             </div>
             <div className="form-item">
-                <label>Niche Depth (inches)</label>
+                <label>Variant Niche Depth (in)</label>
                 <input 
                     type="number" 
                     onChange={handleDepthChange} 

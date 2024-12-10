@@ -9,10 +9,14 @@ const DownloadButton = ({ pdfContainerRef }) => {
         html2canvas(input).then((canvas) => {
             const imgData = canvas.toDataURL('image/png');
             const pdf = new jsPDF('p', 'mm', 'a4');
-            const imgProps = pdf.getImageProperties(imgData);
             const pdfWidth = pdf.internal.pageSize.getWidth();
-            const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-            pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+            // const pdfHeight = pdf.internal.pageSize.getHeight();
+            const imgProps = pdf.getImageProperties(imgData);
+            const imgWidth = pdfWidth - 20; // Adjust for margins
+            const imgHeight = (imgProps.height * imgWidth) / imgProps.width;
+            const margin = 10; // Margin in mm
+
+            pdf.addImage(imgData, 'PNG', margin, margin, imgWidth, imgHeight);
             pdf.save('download.pdf');
         })
     }

@@ -17,80 +17,73 @@ function SpecificationDisplay() {
     } = useContext(ConfigurationContext);
 
     return(
-        <div className='specification-display spec' style={{
-            // position: "absolute",
-            display: 'flex',
-            flexDirection: "column"
-        }}>
+        <div className='specification-display'>
             <div className='display-container'>
-                <label>Screen Specifications</label>
-                <div className='display-item'>
-                    <label>Height (in): </label>
-                    <p>{screen?.['Height']}</p>
-                </div>
-                <div className='display-item'>
-                    <label>Width (in): </label>
-                    <p>{screen?.['Width']}</p>
-                </div>
-                <div className='display-item'>
-                    <label>Depth (in): </label>
-                    <p>{screen?.['Depth']}</p>
+                <label className='specification-label'>Screen Dimensions (in)</label>
+                <div className='display-items'>
+                    <div className='display-item'>
+                        <label>H: </label>
+                        <p>{screen?.['Height']}</p>
+                    </div>
+                    <div className='display-item'>
+                        <label>W: </label>
+                        <p>{screen?.['Width']}</p>
+                    </div>
+                    <div className='display-item'>
+                        <label>D: </label>
+                        <p>{screen?.['Depth']}</p>
+                    </div>
                 </div>
             </div>
             <div className='display-container'>
-                <label>Mount Specifications</label>
-                <div className='display-item'>
-                    <label>Height (in): </label>
-                    <p>{mount?.['Height (in)']}</p>
-                </div>
-                <div className='display-item'>
-                    <label>Width (in): </label>
-                    <p>{mount?.['Width (in)']}</p>
-                </div>
-                <div className='display-item'>
-                    <label>Depth (in): </label>
-                    <p>{mount?.['Depth (in)']}</p>
-                </div>
-            </div>
-            <div className='display-container'>
-                <label>Media Player Specifications</label>
-                <div className='display-item'>
-                    <label>Height (in): </label>
-                    <p>{mediaPlayer?.['Height']}</p>
-                </div>
-                <div className='display-item'>
-                    <label>Width (in): </label>
-                    <p>{mediaPlayer?.['Width']}</p>
-                </div>
-                <div className='display-item'>
-                    <label>Depth (in): </label>
-                    <p>{mediaPlayer?.['Depth']}</p>
+                <label className='specification-label'>Mount Dimensions (in)</label>
+                <div className='display-items'>
+                    <div className='display-item'>
+                        <label>H: </label>
+                        <p>{mount?.['Height (in)']}</p>
+                    </div>
+                    <div className='display-item'>
+                        <label>W: </label>
+                        <p>{mount?.['Width (in)']}</p>
+                    </div>
+                    <div className='display-item'>
+                        <label>D: </label>
+                        <p>{mount?.['Depth (in)']}</p>
+                    </div>
                 </div>
             </div>
             <div className='display-container'>
-                <label>Receptacle Specifications</label>
-                <div className='display-item'>
-                    <label>Height (in): </label>
-                    <p>{receptacle?.['Height (in)']}</p>
-                </div>
-                <div className='display-item'>
-                    <label>Width (in): </label>
-                    <p>{receptacle?.['Width (in)']}</p>
-                </div>
-                <div className='display-item'>
-                    <label>Depth (in): </label>
-                    <p>{receptacle?.['Depth (in)']}</p>
+                <label className='specification-label'>Media Player Dimensions (in)</label>
+                <div className='display-items'>
+                    <div className='display-item'>
+                        <label>H: </label>
+                        <p>{mediaPlayer?.['Height']}</p>
+                    </div>
+                    <div className='display-item'>
+                        <label>W: </label>
+                        <p>{mediaPlayer?.['Width']}</p>
+                    </div>
+                    <div className='display-item'>
+                        <label>D: </label>
+                        <p>{mediaPlayer?.['Depth']}</p>
+                    </div>
                 </div>
             </div>
             <div className='display-container'>
-                <label>Other Specifications</label>
-                <div className='display-item'>
-                    <label>Variable Niche (in): </label>
-                    <p>{nicheDepth}</p>
-                </div>
-                <div className='display-item'>
-                    <label>Minimum Floor Distance (in): </label>
-                    <p>{minDistanceFloor}</p>
+                <label className='specification-label'>Receptacle Dimensions (in)</label>
+                <div className='display-items'>
+                    <div className='display-item'>
+                        <label>H: </label>
+                        <p>{receptacle?.['Height (in)']}</p>
+                    </div>
+                    <div className='display-item'>
+                        <label>W: </label>
+                        <p>{receptacle?.['Width (in)']}</p>
+                    </div>
+                    <div className='display-item'>
+                        <label>D: </label>
+                        <p>{receptacle?.['Depth (in)']}</p>
+                    </div>
                 </div>
             </div>
         </div>

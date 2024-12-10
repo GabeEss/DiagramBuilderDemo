@@ -17,24 +17,24 @@ function DescriptionDisplay() {
         <div className="description-display" style={{
             // position: "absolute",
         }}>
-            <div className="display-item">
-                <label>Project Title</label>
-                <h2>{title}</h2>
+            <div className="description-item">
+                <label>Title: </label>
+                <p>{title}</p>
             </div>
-            <div className="display-item">
-                <label>Project Designer</label>
-                <h3>{designer}</h3>
+            <div className="description-item">
+                <label>Designer: </label>
+                <p>{designer}</p>
             </div>
-            <div className="display-item">
-                <label>Department</label>
+            <div className="description-item">
+                <label>Department: </label>
                 <p>{department}</p>
             </div>
-            <div className="display-item">
-                <label>Screen Size (inches)</label>
+            <div className="description-item">
+                <label>Screen Size (inches): </label>
                 <p>{screen?.['Screen Size'] || ""}</p>
             </div>
-            <div className="display-item">
-                <label>Date</label>
+            <div className="description-item">
+                <label>Date: </label>
                 <p>{date}</p>
             </div>
         </div>

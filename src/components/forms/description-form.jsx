@@ -17,23 +17,23 @@ function DescriptionForm() {
     return (
         <form className="form-container">
             <div className="form-item">
-                <label>Project Title: </label>
-                <input type="text" name="title" value={title} onChange={(e) => setTitle(e.target.value)}/>
+                <label>Project Title </label>
+                <input type="text" maxLength={15} name="title" value={title} onChange={(e) => setTitle(e.target.value)}/>
             </div>
             <div className="form-item">
-                <label>Designer: </label>
-                <input type="text" name="designer" value={designer} onChange={(e) => setDesigner(e.target.value)}/>
+                <label>Designer </label>
+                <input type="text" maxLength={15} name="designer" value={designer} onChange={(e) => setDesigner(e.target.value)}/>
             </div>
             <div className="form-item">
-                <label>Department: </label>
-                <input type="text" name="department" value={department} onChange={(e) => setDepartment(e.target.value)}/>
+                <label>Department </label>
+                <input type="text" maxLength={15} name="department" value={department} onChange={(e) => setDepartment(e.target.value)}/>
             </div>
             <div className="form-item">
-                <label>Screen Size (inches): </label>
+                <label>Screen Size (in) </label>
                 <input type="text" name="screensize" value={screen?.['Screen Size'] || ""} disabled/>
             </div>
             <div className="form-item">
-                <label>Date: </label>
+                <label>Date </label>
                 <input type="date" name="date" value={date} onChange={(e) => setDate(e.target.value)}/>
             </div>
         </form>

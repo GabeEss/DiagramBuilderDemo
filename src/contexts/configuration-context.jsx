@@ -14,6 +14,7 @@ export const ConfigurationProvider = ({children}) => {
     const [scalingFactor, setScalingFactor] = useState(0);
     // The totalNicheDepth will include:
     // Screen depth + Max(Media player depth, Mount depth) + Depth variance
+    // The total niche depth calculation is done in diagram-display.jsx
     const [totalNicheDepth, setTotalNicheDepth] = useState(0);
 
     useEffect(() => {
