@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useContext} from "react";
+import React, {useState, useEffect, useContext } from "react";
 import { ConfigurationContext } from "../contexts/configuration-context";
 import { EquipmentContext } from "../contexts/equipment-context";
 import DescriptionDisplay from "./description-display";
@@ -16,7 +16,8 @@ function DiagramDisplay({pdfContainerRef}) {
         orientation,
         distanceFloor,
         minDistanceFloor,
-        nicheDepth,
+        niche, setNiche,
+        nicheDepth, setNicheDepth,
         scalingFactor, setScalingFactor,
         totalNicheDepth, setTotalNicheDepth
     } = useContext(ConfigurationContext);
@@ -24,51 +25,49 @@ function DiagramDisplay({pdfContainerRef}) {
     // Measurement adjustment stored here for css
     const [screenHeight, setScreenHeight] = useState('auto');
     const [screenWidth, setScreenWidth] = useState('auto');
-    const [floorHeight, setFloorHeight] = useState('auto');
+
+    // State to push the screen when user increases the floor distance
     const [pushScreen, setPushScreen] = useState('auto');
 
     // Adjust the scalingFactor context
     const adjustScale = () => {
-            // Scale the image for visibility depending on the dimensions of the screen
-            if(screen?.['Height'] > 200 || screen?.["Width"] > 200)
-                setScalingFactor(.8);
-            else if(screen?.['Height'] > 95 || screen?.["Width"] > 95)
-                setScalingFactor(5);
-            else if(screen?.['Height'] < 10 || screen?.["Width"] < 10)
-                setScalingFactor(10);
-            else setScalingFactor(6);
+        // Get the max dimension of the current screen
+        const maxDimension = Math.max(screen?.["Width"], screen?.["Height"]);
+
+        // Dynamically scale inversely to max dimension
+        const dynamicScalingFactor = 300 / maxDimension;
+        setScalingFactor(dynamicScalingFactor);
     }
 
     // Calculate the combined niche depth without the screen's size
     const calculateNicheDepth = () => {
+        if(niche === "flat") {
+            setNicheDepth(0);
+            setTotalNicheDepth(0);
+            return;
+        }
+        
         const screenDepth = Number(screen?.["Depth"]) || 0;
         const mediaPlayerDepth = Number(mediaPlayer?.["Depth"]) || 0;
         const mountDepth = Number(mount?.["Depth (in)"]) || 0;
         const nicheDepthValue = Number(nicheDepth) || 0;
 
-        // console.log("Screen Depth:", screenDepth);
-        // console.log("Media Player Depth:", mediaPlayerDepth);
-        // console.log("Mount Depth:", mountDepth);
-        // console.log("Niche Depth:", nicheDepthValue);
-
-        const totalDepth = screenDepth + Math.max(mediaPlayerDepth, mountDepth) + nicheDepthValue;
-        // console.log("Total Niche Depth:", totalDepth);
+        // totalNicheDepth needs the full value to start, so multiply variant niche depth by 4
+        const totalDepth = screenDepth + Math.max(mediaPlayerDepth, mountDepth) + (nicheDepthValue * 4);
 
         setTotalNicheDepth(totalDepth);
     }
-
 
     // IMPORTANT: Must include duplicate functions in both useEffect hooks
     useEffect(() => {
         if(screen?.['Height'] && screen?.['Width']) {
             adjustScale();
             calculateNicheDepth();
+
             setScreenHeight(`${screen['Height'] * scalingFactor}px`);
             setScreenWidth(`${screen['Width'] * scalingFactor}px`);
 
-            // When screen changes, adjust height, width, and scale the min height from floor to center.
-            // Note that the floorHeight and pushScreen does not have a px addendum at the end
-            setFloorHeight(`${(minDistanceFloor + (totalNicheDepth/4)) * scalingFactor}`);
+            // Note that the pushScreen does not have a px addendum at the end
             setPushScreen(`${(distanceFloor + (totalNicheDepth/4)) * scalingFactor}`);
         } else setScreenHeight('auto');
     }, [screen]);
@@ -77,18 +76,15 @@ function DiagramDisplay({pdfContainerRef}) {
     useEffect(() => {
         adjustScale();
         calculateNicheDepth();
+
         setScreenHeight(`${screen['Height'] * scalingFactor}px`);
         setScreenWidth(`${screen['Width'] * scalingFactor}px`);
 
-        // Line to measure floor height must change when user changes niche depth
-        // Screen gets pushed by the niche-display container as totalNicheDepth increases through inline styling
-        setFloorHeight(`${(distanceFloor + (totalNicheDepth/4)) * scalingFactor}`);
         setPushScreen(`${(distanceFloor - minDistanceFloor) * scalingFactor }`);
-    }, [distanceFloor, nicheDepth, mount, mediaPlayer]);
-    
+    }, [distanceFloor, niche, nicheDepth, mount, mediaPlayer]);
 
     // NOTE: inline-style calculations done at:
-    // floor-distance-label, niche-display, niche-depth-label, receptacle-niche
+    // floor-distance-label, floor-distance, niche-display, niche-depth-label, receptacle-niche
     return(
         <div ref={pdfContainerRef} className="pdf-container" style={{
             borderBottom: "1px solid black",
@@ -119,9 +115,9 @@ function DiagramDisplay({pdfContainerRef}) {
                     <label className="floor-distance-label" style={{paddingRight: "10em"}}>
                         {(distanceFloor + (totalNicheDepth/4)).toFixed(2)} (in)</label>
                     <div className="floor-distance" style={{
-                        borderLeft: "1px solid red",
-                        // borderTop: "1px solid red",
-                        height: `${floorHeight}px`,
+                        borderLeft: "1px solid black",
+                        // borderTop: "1px solid black",
+                        height: `${(distanceFloor + (totalNicheDepth/4)) * scalingFactor}px`,
                     }}/>
                 </div>
                 <div className="niche-display" style={{
@@ -138,7 +134,7 @@ function DiagramDisplay({pdfContainerRef}) {
                         position: "absolute",
                         display: "flex",
                         transform: "translateX(-130%) translateY(-60%)",
-                    }}><p>Niche: { (totalNicheDepth / 4).toFixed(2)} (in)</p></label> : ""}
+                    }}><p>Niche: { (totalNicheDepth/4).toFixed(2)} (in)</p></label> : ""}
                     <div className="diagram-display" style={{
                         border: "2px solid black",
                         height: `${orientation == "horizontal" ? screenHeight : screenWidth}`,
@@ -152,7 +148,7 @@ function DiagramDisplay({pdfContainerRef}) {
                             gridRow: "2",
                             height: "1px",
                             width: "100%",
-                            backgroundColor: "red"
+                            backgroundColor: "black"
                         }}>
                             <label className="screen-height-label" style={{
                                 position: "absolute",
@@ -167,7 +163,7 @@ function DiagramDisplay({pdfContainerRef}) {
                             gridRow: "1/-1",
                             height: "100%",
                             width: "1px",
-                            backgroundColor: "red"
+                            backgroundColor: "black"
                         }}>
                             <label className="screen-width-label" style={{
                                     position: "absolute",
@@ -177,7 +173,7 @@ function DiagramDisplay({pdfContainerRef}) {
                                     <p>Width: {orientation == "horizontal" ? screen?.["Width"] : screen?.["Height"]} (in)</p>
                             </label>
                         </div>
-                        {mount ? <div className="mount" style={{
+                        {/* {mount ? <div className="mount" style={{
                             position: "absolute",
                             border: "1px solid blue",
                             alignSelf: "center",
@@ -185,7 +181,7 @@ function DiagramDisplay({pdfContainerRef}) {
                             width: `${mount["Width (in)"] * scalingFactor}px`,
                             height: `${mount["Height (in)"] * scalingFactor}px`,
                             zIndex: "-1"
-                        }}/> : ""}
+                        }}/> : ""} */}
                         <div className="receptacle-niche" style={{
                             position: "absolute",
                             border: "1px dashed black",

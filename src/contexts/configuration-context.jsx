@@ -12,20 +12,20 @@ export const ConfigurationProvider = ({children}) => {
 
     // The scaling that needs to be done to fit all the screens within the pdf container
     const [scalingFactor, setScalingFactor] = useState(0);
+
     // The totalNicheDepth will include:
     // Screen depth + Max(Media player depth, Mount depth) + Depth variance
     // The total niche depth calculation is done in diagram-display.jsx
     const [totalNicheDepth, setTotalNicheDepth] = useState(0);
 
     useEffect(() => {
-        if(niche === "flat") setNicheDepth(0);
-    }, [niche]);
+        if(nicheDepth === 0 && niche != "flat") setNicheDepth(.5);
+    }, [niche])
 
     useEffect(() => {
-        if(nicheDepth > 0) setNiche("niche");
-        if(nicheDepth == 0) setNiche('flat');
-    }, [nicheDepth]);
-    
+        if(nicheDepth != 0) setNiche("niche");
+    }, [nicheDepth])
+
     return(
         <ConfigurationContext.Provider value={{
             orientation, setOrientation,
@@ -34,7 +34,7 @@ export const ConfigurationProvider = ({children}) => {
             minDistanceFloor, setMinDistanceFloor,
             nicheDepth, setNicheDepth,
             scalingFactor, setScalingFactor,
-            totalNicheDepth, setTotalNicheDepth
+            totalNicheDepth, setTotalNicheDepth,
         }}>
             {children}
         </ConfigurationContext.Provider>

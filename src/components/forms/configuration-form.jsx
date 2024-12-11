@@ -31,21 +31,11 @@ function ConfigurationForm() {
         if (orientation === 'horizontal') {
             setDistanceFloor(distanceToCenterY);
             setMinDistanceFloor(distanceToCenterY);
-
-            // Arbitrary max height
-            if(minDistanceFloor > 50)
-                setMaxHeight(minDistanceFloor + 50);
-            else
-                setMaxHeight(50);
+            setMaxHeight(distanceToCenterY * 4);
         } else if (orientation === 'vertical') {
             setDistanceFloor(distanceToCenterX);
             setMinDistanceFloor(distanceToCenterX);
-
-            // Arbitrary max height
-            if(minDistanceFloor > 50)
-                setMaxHeight(minDistanceFloor + 50);
-            else
-                setMaxHeight(50);
+            setMaxHeight(distanceToCenterX * 2.5);
         }
     }, [screen, orientation]);
 
@@ -71,8 +61,8 @@ function ConfigurationForm() {
     const handleDepthChange = (e) => {
         const value = parseFloat(e.target.value);
 
-        // From 0 - 5 inches range
-        if(value >= 6 && value <= 8) {
+        // From 0 - 2 inches range
+        if(value >= .5 && value <= 2) {
             setNicheDepth(value);
         }
     }
@@ -86,6 +76,17 @@ function ConfigurationForm() {
                     <option value={"vertical"}>Vertical</option>
                 </select>
             </div>
+            
+            <div className="form-item">
+                <label>Distance from Center to Floor (in)</label>
+                <input 
+                    type='number' 
+                    onChange={handleFloorChange}
+                    value={distanceFloor || 0} 
+                    min={minDistanceFloor || 0}
+                    max={maxHeight || 0}
+                />
+            </div>
             <div className="form-item">
                 <label>Wall Installation</label>
                 <select value={niche} onChange={handleNicheChange}>
@@ -94,25 +95,18 @@ function ConfigurationForm() {
                 </select>
             </div>
             <div className="form-item">
-                <label>Distance from Center to Floor (in)</label>
-                <input 
-                    type='number' 
-                    onChange={handleFloorChange}
-                    value={distanceFloor || 0} 
-                    min={minDistanceFloor || 0}
-                    max={maxHeight}
-                />
-            </div>
-            <div className="form-item">
                 <label>Variant Niche Depth (in)</label>
                 <input 
                     type="number" 
                     onChange={handleDepthChange} 
-                    value={nicheDepth} 
-                    min="6"
-                    max="8"
+                    value={nicheDepth || 0} 
+                    min=".5"
+                    max="2"
+                    step={.5}
+                    disabled={niche === 'flat'}
                 />
             </div>
+
         </form>
     )
 }
