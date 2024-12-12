@@ -67,7 +67,7 @@ function ConfigurationForm() {
     }
 
     return(
-        <form className="configuration-container">
+        <form className="configuration-form-container">
             <div className="configuration-item">
                 <button
                     type='button'

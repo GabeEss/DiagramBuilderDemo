@@ -29,7 +29,7 @@
     margin: .5em;
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr .5fr;
+    grid-template-rows: auto auto auto;
 }
 
 .equipment-config-container {
@@ -37,23 +37,16 @@
     flex-direction: column;
     border: 1px solid #ccc;
     border-radius: 8px;
-    padding: 1em;
+    padding: .8em;
     margin-bottom: 1em;
     /* box-shadow: 0 4px 8px rgba(0, 0, 0, .1); */
 }
 
-.form-container {
+/* .form-container {
     border: 1px solid #ccc;
     border-radius: 8px;
-    /* box-shadow: 0 4px 8px rgba(0, 0, 0, .1); */
-}
-
-
-/* EQUIPMENT FORM STYLING */
-
-.equipment-container {
-
-}
+    box-shadow: 0 4px 8px rgba(0, 0, 0, .1);
+} */
 
 /* CONFIGURATION FORM STYLING */
 
@@ -63,8 +56,8 @@
     margin: 0;
 }
 
-.configuration-container {
-
+.configuration-form-container {
+    margin-top: .2em;
 }
 
 .configuration-item {
@@ -78,6 +71,7 @@
     padding: .5em;
     margin-top: .4em;
     cursor: pointer;
+    border-radius: 2px;
 }
 
 .configuration-item label {
@@ -92,6 +86,7 @@
     margin-top: .4em;
     background-color: #333;
     color: white;
+    border-radius: 2px;
 }
 
 .configuration-item input {
@@ -100,6 +95,7 @@
     border: 1px solid #ccc;
     padding: .5em;
     margin-top: .4em;
+    border-radius: 2px;
 }
 
 .configuration-item input.disabled {
@@ -111,27 +107,105 @@
     color: white;
 }
 
+.equipment-form-container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1em;
+}
+
+.equipment-item {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.equipment-item label {
+    font-size: .8em;
+    padding-top: .3em;
+    padding-bottom: .3em;
+    color: #848484ee;
+}
+
+.equipment-item select {
+    font-size: .9em;
+    transition: background-color .2s ease;
+    border: none;
+    color: #6b6b6bee;
+    border: 1px solid #d3d3d3;
+    border-radius: 3px;
+    cursor: pointer;
+    /* appearance: none; */
+    padding: .3em;
+}
+
+.equipment-item p {
+    padding: .2em;
+}
+
+.equipment-item input:hover, .description-item select:hover {
+    background-color: #f0f0f0;
+}
+
+
+/* DESCRIPTION FORM STYLING */
+
+.description-form-container {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: .8em;
+    margin-bottom: 1em;
+}
+
+.description-form-item {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.description-form-item label {
+    font-size: .8em;
+    padding-top: .3em;
+    padding-bottom: .3em;
+    color: #848484ee;
+}
+
+.description-form-item input {
+    font-size: .9em;
+    transition: background-color .2s ease;
+    border: none;
+    color: #6b6b6bee;
+    border: 1px solid #d3d3d3;
+    border-radius: 3px;
+    cursor: pointer;
+    /* appearance: none; */
+    padding: .3em;
+}
+
 /* DOWNLOAD BUTTON STYLING */
 
 .download-container {
     width: 100%;
     display: flex;
     justify-content: center;
-    margin-top: 1em;
-    padding-bottom: 1em;
+    margin-top: .2em;
+    /* padding-bottom: 1em; */
 }
 
 .download {
-    background-color: rgb(216, 216, 248);
+    background-color: rgb(0, 0, 248);
+    width: 100%;
+    color: white;
     border: none;
-    padding: 10px 15px;
+    padding: 1em 2em;
     transition: background-color .2s ease;
     text-align: center;
-    border-radius: 8px;
+    /* border-radius: 8px; */
 }
 
 .download:hover {
-    background-color: rgb(187, 187, 255);
+    background-color: rgb(1, 1, 219);
 }
 
 /*  DESCRIPTION STYLING FOR GRID POSITION CHECK diagram-display.jsx */
@@ -146,31 +220,6 @@
     flex-direction: column;
 }
 
-.description-item {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-}
-
-.description-item label {
-    font-size: .8em;
-    padding-top: .3em;
-    padding-bottom: .3em;
-    color: #848484ee;
-}
-
-.description-item select {
-    font-size: .9em;
-    transition: background-color .2s ease;
-    border: none;
-    color: #6b6b6bee;
-    border: 1px solid #d3d3d3;
-    border-radius: 3px;
-    cursor: pointer;
-    /* appearance: none; */
-    padding-right: 1.5em;
-}
-
 .form-item input {
     /* font-size: 1em;
     transition: background-color .2s ease;
@@ -182,13 +231,6 @@
     
 }
 
-.description-item p {
-    padding: .2em;
-}
-
-.description-item input:hover, .description-item select:hover {
-    background-color: #f0f0f0;
-}
 
 /* SPECIFICATION STYLING FOR GRID POSITION CHECK diagram-display.jsx*/
 

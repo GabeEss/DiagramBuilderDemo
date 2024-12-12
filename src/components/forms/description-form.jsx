@@ -15,25 +15,25 @@ function DescriptionForm() {
     } = useContext(EquipmentContext);
 
     return (
-        <form className="form-container">
+        <form className="description-form-container">
             <h3>Description</h3>
-            <div className="form-item">
+            <div className="description-form-item">
                 <label>Project Title </label>
                 <input type="text" maxLength={15} name="title" value={title} onChange={(e) => setTitle(e.target.value)}/>
             </div>
-            <div className="form-item">
+            <div className="description-form-item">
                 <label>Designer </label>
                 <input type="text" maxLength={15} name="designer" value={designer} onChange={(e) => setDesigner(e.target.value)}/>
             </div>
-            <div className="form-item">
+            <div className="description-form-item">
                 <label>Department </label>
                 <input type="text" maxLength={15} name="department" value={department} onChange={(e) => setDepartment(e.target.value)}/>
             </div>
-            <div className="form-item">
+            <div className="description-form-item">
                 <label>Screen Size (in) </label>
                 <input type="text" name="screensize" value={screen?.['Screen Size'] || ""} disabled/>
             </div>
-            <div className="form-item">
+            <div className="description-form-item">
                 <label>Date </label>
                 <input type="date" name="date" value={date} onChange={(e) => setDate(e.target.value)}/>
             </div>
