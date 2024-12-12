@@ -87,8 +87,8 @@ function EquipmentForm() {
     }, []);
 
     return(
-        <form className="form-container">
-            <div className="form-item">
+        <form className="description-container">
+            <div className="description-item">
                 <label>Screen</label>
                 <select onChange={handleScreenChange} value={screen?.['Screen MFR']}>
                     {screenData.map((screen, index) => (
@@ -98,7 +98,7 @@ function EquipmentForm() {
                     ))}
                 </select>
             </div>
-            <div className="form-item">
+            <div className="description-item">
                 <label>Mount</label>
                 <select onChange={handleMountChange} value={mount?.['MFG. PART']}>
                     {/* <option value={"deselect"}>Mount Screen</option> */}
@@ -109,7 +109,7 @@ function EquipmentForm() {
                     ))}
                 </select>
             </div>
-            <div className="form-item">
+            <div className="description-item">
                 <label>Media Player</label>
                 <select onChange={handleMediaChange} value={mediaPlayer?.['MFG. PART']}>
                     {mediaPlayerData.map((media, index) => (
@@ -119,7 +119,7 @@ function EquipmentForm() {
                     ))}
                 </select>
             </div>
-            <div className="form-item">
+            <div className="description-item">
                 <label>Receptacle</label>
                 <select onChange={handleReceptacleChange} value={receptacle?.['MFG. PART']}>
                     {receptacleData.map((receptacle, index) => (

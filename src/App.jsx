@@ -23,8 +23,11 @@ function App() {
       <div className="app-container"> 
         <DiagramDisplay pdfContainerRef={pdfContainerRef}/>
         <div className="forms-container">
-          <EquipmentForm/>
-          <ConfigurationForm/>
+          <div className="equipment-config-container">
+            <h3 className="configuration-header">Configuration</h3>
+            <EquipmentForm/>
+            <ConfigurationForm/>
+          </div>
           <DescriptionForm/>
           <div className="download-container">
             <DownloadButton pdfContainerRef={pdfContainerRef}/>

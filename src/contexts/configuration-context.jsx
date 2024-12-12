@@ -5,7 +5,7 @@ export const ConfigurationContext = createContext();
 
 export const ConfigurationProvider = ({children}) => {
     const [orientation, setOrientation] = useState("horizontal");
-    const [niche, setNiche] = useState("flat");
+    const [niche, setNiche] = useState("niche");
     const [minDistanceFloor, setMinDistanceFloor] = useState(0);
     const [distanceFloor, setDistanceFloor] = useState(0);
     const [nicheDepth, setNicheDepth] = useState(0);

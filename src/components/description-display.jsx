@@ -15,7 +15,7 @@ function DescriptionDisplay() {
 
     return(
         <div className="description-display" style={{
-            // position: "absolute",
+            
         }}>
             <div className="description-item">
                 <label>Title: </label>

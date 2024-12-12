@@ -92,21 +92,21 @@ function DiagramDisplay({pdfContainerRef}) {
         }}>
             <div className="floor-screen-container" style={{
                 display: "grid",
-                gridTemplateColumns: "1fr 1fr 3fr",
+                gridTemplateColumns: "1fr 1fr 1fr",
                 gridTemplateRows: "1fr auto",
                 height: "100%",
             }}>
                 <div className="specification-position" style={{
-                    gridColumn: "1",
+                    gridColumn: "3",
                     gridRow: "1",
                     display: "flex",
                     flexDirection: 'column'
                 }}>
-                    <DescriptionDisplay/>
                     <SpecificationDisplay/>
+                    <DescriptionDisplay/>
                 </div>
                 <div className="floor-distance-container" style={{
-                    gridColumn: "2",
+                    gridColumn: "1",
                     gridRow: "1",
                     alignSelf: "end",
                     marginLeft: "6em",
@@ -122,7 +122,7 @@ function DiagramDisplay({pdfContainerRef}) {
                 </div>
                 <div className="niche-display" style={{
                     gridRow: "1",
-                    gridColumn: "3",
+                    gridColumn: "2",
                     alignSelf: "end",
                     marginRight: "1em",
                     marginBottom: `${pushScreen}px`,

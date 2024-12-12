@@ -39,9 +39,8 @@ function ConfigurationForm() {
         }
     }, [screen, orientation]);
 
-    const handleOrientationChange = (e) => {
-        e.preventDefault();
-        setOrientation(e.target.value);
+    const handleOrientationChange = (value) => {
+        setOrientation(value);
     }
 
     const handleFloorChange = (e) => {
@@ -53,8 +52,8 @@ function ConfigurationForm() {
         }
     }
 
-    const handleNicheChange = (e) => {
-        setNiche(e.target.value);
+    const handleNicheChange = (value) => {
+        setNiche(value);
     }
     
     // Changing the depth will change the value of the wall installation in the config context
@@ -68,34 +67,41 @@ function ConfigurationForm() {
     }
 
     return(
-        <form className="form-container">
-            <div className="form-item">
-                <label>Screen Orientation</label>
-                <select onChange={handleOrientationChange} value={orientation}>
-                    <option value={"horizontal"}>Horizontal</option>
-                    <option value={"vertical"}>Vertical</option>
-                </select>
+        <form className="configuration-container">
+            <div className="configuration-item">
+                <button
+                    type='button'
+                    className={orientation === "horizontal" ? "selected" : ""}
+                    onClick={() => handleOrientationChange("horizontal")}
+                >
+                    Horizontal
+                </button>
+                <button
+                    type='button'
+                    className={orientation === "vertical" ? "selected" : ""}
+                    onClick={() => handleOrientationChange("vertical")}
+                >
+                    Vertical
+                </button>
             </div>
-            
-            <div className="form-item">
-                <label>Distance from Center to Floor (in)</label>
-                <input 
-                    type='number' 
-                    onChange={handleFloorChange}
-                    value={distanceFloor || 0} 
-                    min={minDistanceFloor || 0}
-                    max={maxHeight || 0}
-                />
+            <div className="configuration-item">
+                <button
+                    type='button'
+                    className={niche === "flat" ? "selected" : ""}
+                    onClick={() => handleNicheChange("flat")}
+                >
+                    Flat
+                </button>
+                <button
+                    type='button'
+                    className={niche === "niche" ? "selected" : ""}
+                    onClick={() => handleNicheChange("niche")}
+                >
+                    Niche
+                </button>
             </div>
-            <div className="form-item">
-                <label>Wall Installation</label>
-                <select value={niche} onChange={handleNicheChange}>
-                    <option value={"flat"}>Flat</option>
-                    <option value={"niche"}>Niche</option>
-                </select>
-            </div>
-            <div className="form-item">
-                <label>Variant Niche Depth (in)</label>
+            <div className="configuration-item">
+                <label>Niche Depth</label>
                 <input 
                     type="number" 
                     onChange={handleDepthChange} 
@@ -103,7 +109,18 @@ function ConfigurationForm() {
                     min=".5"
                     max="2"
                     step={.5}
+                    className={niche === "flat" ? "disabled" : ""}
                     disabled={niche === 'flat'}
+                />
+            </div>
+            <div className="configuration-item">
+                <label>Floor Distance</label>
+                <input 
+                    type='number' 
+                    onChange={handleFloorChange}
+                    value={distanceFloor || 0} 
+                    min={minDistanceFloor || 0}
+                    max={maxHeight || 0}
                 />
             </div>
 
