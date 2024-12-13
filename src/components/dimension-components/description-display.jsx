@@ -1,6 +1,6 @@
 import React, {useContext} from "react";
-import { DescriptionContext } from "../contexts/description-context";
-import { EquipmentContext } from "../contexts/equipment-context";
+import { DescriptionContext } from "../../contexts/description-context";
+import { EquipmentContext } from "../../contexts/equipment-context";
 
 function DescriptionDisplay() {
     const {

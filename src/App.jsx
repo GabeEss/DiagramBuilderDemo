@@ -24,7 +24,7 @@ function App() {
         <DiagramDisplay pdfContainerRef={pdfContainerRef}/>
         <div className="forms-container">
           <div className="equipment-config-container">
-            <h3 className="configuration-header">Configuration</h3>
+            <h4 className="configuration-header">Configuration</h4>
             <EquipmentForm/>
             <ConfigurationForm/>
           </div>

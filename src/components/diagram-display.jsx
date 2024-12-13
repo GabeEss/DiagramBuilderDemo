@@ -1,8 +1,7 @@
 import React, {useState, useEffect, useContext } from "react";
 import { ConfigurationContext } from "../contexts/configuration-context";
 import { EquipmentContext } from "../contexts/equipment-context";
-import DescriptionDisplay from "./description-display";
-import SpecificationDisplay from "./specification-display";
+import DimensionsDescriptionDisplay from "./dimensions-description-display";
 
 function DiagramDisplay({pdfContainerRef}) {
     const {
@@ -86,24 +85,24 @@ function DiagramDisplay({pdfContainerRef}) {
     // NOTE: inline-style calculations done at:
     // floor-distance-label, floor-distance, niche-display, niche-depth-label, receptacle-niche
     return(
-        <div ref={pdfContainerRef} className="pdf-container" style={{
-            borderBottom: "1px solid black",
-            margin: ".5em",
-        }}>
+        <div ref={pdfContainerRef} className="pdf-container">
             <div className="floor-screen-container" style={{
+                border: "1px solid #ccc",
+                borderRadius: "8px",
+                padding: ".5em",
+                margin: ".5em",
+
                 display: "grid",
-                gridTemplateColumns: "1fr 1fr 1fr",
-                gridTemplateRows: "1fr auto",
+                gridTemplateColumns: "20% 40% 40%",
                 height: "100%",
             }}>
                 <div className="specification-position" style={{
                     gridColumn: "3",
-                    gridRow: "1",
+                    gridRow: "1/2",
                     display: "flex",
                     flexDirection: 'column'
                 }}>
-                    <SpecificationDisplay/>
-                    <DescriptionDisplay/>
+                    <DimensionsDescriptionDisplay/>
                 </div>
                 <div className="floor-distance-container" style={{
                     gridColumn: "1",
@@ -198,11 +197,11 @@ function DiagramDisplay({pdfContainerRef}) {
                     </div>
                 </div>
             </div>
-            <br/>
+            {/* <br/>
             <label style={{
                 position: "absolute",
                 transform: 'translateY(0%) translateX(50%)',
-            }}>Floor</label>
+            }}>Floor</label> */}
         </div>   
     )
 }

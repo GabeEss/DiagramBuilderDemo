@@ -1,9 +1,12 @@
 import React, {useContext} from 'react';
 import { EquipmentContext } from '../contexts/equipment-context';
 import { ConfigurationContext } from '../contexts/configuration-context';
+import NicheDimensionDisplay from './dimension-components/niche-dimension-display';
+import ScreenDimensionDisplay from './dimension-components/screen-dimensions-display';
+import ReceptacleDimensionDisplay from './dimension-components/receptacle-dimensions.display';
 
-// A component to display the project's specifications.
-function SpecificationDisplay() {
+// A component to display the project's dimensions and description.
+function DimensionsDescriptionDisplay() {
     const {
         screen,
         mount,
@@ -17,8 +20,16 @@ function SpecificationDisplay() {
     } = useContext(ConfigurationContext);
 
     return(
-        <div className='specification-display'>
-            <div className='display-container'>
+        <div className='dimensions-description-container'>
+            <div className='dimensions-display-container'>
+                <NicheDimensionDisplay/>
+                <ScreenDimensionDisplay/>
+            </div>
+            <div className='receptacle-description-container'>
+                <ReceptacleDimensionDisplay/>
+            </div>
+            
+            {/* <div className='display-container'>
                 <label className='specification-label'>Screen Dimensions (in)</label>
                 <div className='display-items'>
                     <div className='display-item'>
@@ -85,9 +96,9 @@ function SpecificationDisplay() {
                         <p>{receptacle?.['Depth (in)']}</p>
                     </div>
                 </div>
-            </div>
+            </div> */}
         </div>
     )
 }
 
-export default SpecificationDisplay;
+export default DimensionsDescriptionDisplay;
