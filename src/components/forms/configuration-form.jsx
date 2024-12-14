@@ -14,7 +14,7 @@ function ConfigurationForm() {
         nicheDepth, setNicheDepth,
     } = useContext(ConfigurationContext);
 
-    const [maxHeight, setMaxHeight] = useState(55);
+    // const [maxHeight, setMaxHeight] = useState(55);
 
     // Get screen
     const {
@@ -31,11 +31,11 @@ function ConfigurationForm() {
         if (orientation === 'horizontal') {
             setDistanceFloor(distanceToCenterY);
             setMinDistanceFloor(distanceToCenterY);
-            setMaxHeight(distanceToCenterY * 4);
+            // setMaxHeight(distanceToCenterY * 4);
         } else if (orientation === 'vertical') {
             setDistanceFloor(distanceToCenterX);
             setMinDistanceFloor(distanceToCenterX);
-            setMaxHeight(distanceToCenterX * 2.5);
+            // setMaxHeight(distanceToCenterX * 2.5);
         }
     }, [screen, orientation]);
 
@@ -45,9 +45,7 @@ function ConfigurationForm() {
 
     const handleFloorChange = (e) => {
         const value = parseFloat(e.target.value);
-        // From floor to 55 inches range, removing the maximum will cause the page to stretch
-        // with larger distance inputs
-        if(value >= minDistanceFloor && value <= maxHeight) {
+        if(value >= minDistanceFloor) {
             setDistanceFloor(value);
         }
     }
@@ -120,7 +118,6 @@ function ConfigurationForm() {
                     onChange={handleFloorChange}
                     value={distanceFloor || 0} 
                     min={minDistanceFloor || 0}
-                    max={maxHeight || 0}
                 />
             </div>
 

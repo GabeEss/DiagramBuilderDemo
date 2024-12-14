@@ -21,7 +21,9 @@ function App() {
   return (
     <div className="app">
       <div className="app-container"> 
-        <DiagramDisplay pdfContainerRef={pdfContainerRef}/>
+        <div className="drawing-container">
+          <DiagramDisplay pdfContainerRef={pdfContainerRef}/>
+        </div>
         <div className="forms-container">
           <div className="equipment-config-container">
             <h4 className="configuration-header">Configuration</h4>

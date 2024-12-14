@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useContext } from "react";
+import React, {useState, useEffect, useContext, useRef } from "react";
 import { ConfigurationContext } from "../contexts/configuration-context";
 import { EquipmentContext } from "../contexts/equipment-context";
 import DimensionsDescriptionDisplay from "./dimensions-description-display";
@@ -25,8 +25,8 @@ function DiagramDisplay({pdfContainerRef}) {
     const [screenHeight, setScreenHeight] = useState('auto');
     const [screenWidth, setScreenWidth] = useState('auto');
 
-    // State to push the screen when user increases the floor distance
-    const [pushScreen, setPushScreen] = useState('auto');
+    // Center of the screen container (not the screen itself)
+    const screenCenterRef = useRef(null);
 
     // Adjust the scalingFactor context
     const adjustScale = () => {
@@ -57,151 +57,222 @@ function DiagramDisplay({pdfContainerRef}) {
         setTotalNicheDepth(totalDepth);
     }
 
-    // IMPORTANT: Must include duplicate functions in both useEffect hooks
     useEffect(() => {
         if(screen?.['Height'] && screen?.['Width']) {
             adjustScale();
             calculateNicheDepth();
 
-            setScreenHeight(`${screen['Height'] * scalingFactor}px`);
-            setScreenWidth(`${screen['Width'] * scalingFactor}px`);
-
-            // Note that the pushScreen does not have a px addendum at the end
-            setPushScreen(`${(distanceFloor + (totalNicheDepth/4)) * scalingFactor}`);
+            if(orientation === "horizontal") {
+                setScreenHeight(`${screen['Height'] * scalingFactor}`);
+                setScreenWidth(`${screen['Width'] * scalingFactor}`);
+            } else {
+                setScreenHeight(`${screen['Width'] * scalingFactor}`);
+                setScreenWidth(`${screen['Height'] * scalingFactor}`);
+            }
+            
         } else setScreenHeight('auto');
-    }, [screen]);
-
-    
-    useEffect(() => {
-        adjustScale();
-        calculateNicheDepth();
-
-        setScreenHeight(`${screen['Height'] * scalingFactor}px`);
-        setScreenWidth(`${screen['Width'] * scalingFactor}px`);
-
-        setPushScreen(`${(distanceFloor - minDistanceFloor) * scalingFactor }`);
-    }, [distanceFloor, niche, nicheDepth, mount, mediaPlayer]);
+    }, [screen, distanceFloor, niche, nicheDepth, mount, mediaPlayer]);
 
     // NOTE: inline-style calculations done at:
     // floor-distance-label, floor-distance, niche-display, niche-depth-label, receptacle-niche
     return(
         <div ref={pdfContainerRef} className="pdf-container">
             <div className="floor-screen-container" style={{
-                border: "1px solid #ccc",
-                borderRadius: "8px",
-                padding: ".5em",
-                margin: ".5em",
-
                 display: "grid",
-                gridTemplateColumns: "20% 40% 40%",
+                gridTemplateColumns: "60% 40%",
                 height: "100%",
             }}>
                 <div className="specification-position" style={{
-                    gridColumn: "3",
+                    gridColumn: "2",
                     gridRow: "1/2",
                     display: "flex",
                     flexDirection: 'column'
                 }}>
                     <DimensionsDescriptionDisplay/>
                 </div>
-                <div className="floor-distance-container" style={{
-                    gridColumn: "1",
-                    gridRow: "1",
-                    alignSelf: "end",
-                    marginLeft: "6em",
+                <div style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
                 }}>
-                    {/* Add 1/4 the nicheDepth to adjust the new height from floor to center*/}
-                    <label className="floor-distance-label" style={{paddingRight: "10em"}}>
-                        {(distanceFloor + (totalNicheDepth/4)).toFixed(2)} (in)</label>
-                    <div className="floor-distance" style={{
-                        borderLeft: "1px solid black",
-                        // borderTop: "1px solid black",
-                        height: `${(distanceFloor + (totalNicheDepth/4)) * scalingFactor}px`,
-                    }}/>
+                    <svg width={screenWidth || "100%"} height={"100%"} viewBox={`0 0 ${screenWidth || "100%"} ${screenHeight || "100%"}`} xmlns="http://www.w3.org/2000/">
+                        {/* Screen */}
+                        <rect
+                            x="0"
+                            y="0" 
+                            width={screenWidth || "100%"} 
+                            height={screenHeight || "100%"} 
+                            stroke="black" 
+                            fill="none" 
+                            strokeWidth={2}/>
+                        {/* Floor */}
+                        <line x1="0" 
+                            y1="200%" 
+                            x2={screenWidth} 
+                            y2="200%" 
+                            stroke="black" 
+                            strokeWidth={2}/>
+                        {/* Floor label */}
+                        {/* Floor line */}
+                        <line x1={screenWidth / 2} 
+                            y1="200%" 
+                            x2={screenWidth / 2} 
+                            y2={`calc(100% - ${screenHeight / 2}px)`} 
+                            stroke="black" 
+                            strokeWidth={2}/>
+                        {/* Floor line label */}
+                        <text 
+                            x={screenWidth / 2 + 50} 
+                            y="150%" 
+                            textAnchor="middle" 
+                            fill="black">{(distanceFloor + (totalNicheDepth/4)).toFixed(2)}"</text>
+                    </svg>
                 </div>
-                <div className="niche-display" style={{
-                    gridRow: "1",
-                    gridColumn: "2",
-                    alignSelf: "end",
-                    marginRight: "1em",
-                    marginBottom: `${pushScreen}px`,
+
+                {/* <div className="diagram-container" style={{
                     border: "1px solid black",
-                    padding: `${(totalNicheDepth / 4) * scalingFactor}px`,
-                    width: "fit-content"
+                    height: "100%"
                 }}>
-                    {totalNicheDepth > 0 ? <label className="niche-depth-label" style={{
-                        position: "absolute",
-                        display: "flex",
-                        transform: "translateX(-130%) translateY(-60%)",
-                    }}><p>Niche: { (totalNicheDepth/4).toFixed(2)} (in)</p></label> : ""}
-                    <div className="diagram-display" style={{
-                        border: "2px solid black",
-                        height: `${orientation == "horizontal" ? screenHeight : screenWidth}`,
-                        width: `${orientation == "horizontal" ? screenWidth : screenHeight}`,
+                    <div className="floor-container" style={{
+                        margin: "2em",
+                        borderBottom: "1px solid black",
+                        height: "calc(100% - 6em)",
+                        boxSizing: "border-box",
                         display: "grid",
-                        gridTemplateColumns: "1fr auto 1fr",
-                        gridTemplateRows: "1fr auto 1fr"
+                        gridTemplateColumns: "6em 1fr",
+                        gridTemplateRows: "1fr"
                     }}>
-                        <div className="screen-center-horizontal" style={{
-                            gridColumn: "1 / -1",
-                            gridRow: "2",
-                            height: "1px",
-                            width: "100%",
-                            backgroundColor: "black"
+                        <div className="floor-distance-container" style={{
+                            gridColumn: "1",
+                            alignSelf: "end",
+                            marginLeft: "6em",
+                            }}>
+                                <div className="floor-distance-label" style={{paddingRight: "10em"}}>
+                                    {(distanceFloor + (totalNicheDepth/4)).toFixed(2)}</div>
+                                <div className="floor-distance" style={{
+                                    borderLeft: "1px solid black",
+                                    height: `${(distanceFloor + (totalNicheDepth/4)) * scalingFactor}px`,
+                                }}/>
+                                <div style={{
+                                    position: "absolute",
+                                }}>
+                                    Floor Line
+                                </div>
+                        </div>
+                        <div className="screen-boundaries-container" style={{
+                            gridColumn: "2",
+                            margin: "2em",
+                            border: "1px solid black",
+                            height: "calc(100% - 10em)",
+                            boxSizing: "border-box",
+                            display: "display",
+                            justifyContent: "center",
+                            alignItems: "center",
                         }}>
-                            <label className="screen-height-label" style={{
+                            <div className="niche-height-label" style={{
+                                    gridRow: "2",
+                                    gridColumn: "1",
+                                    display: "flex",
+                                    justifyContent: "center",
+                                    paddingRight: `${(totalNicheDepth / 4) * scalingFactor}px`,
+                                    alignItems: "center",
+                                    borderLeft: "1px solid black",
+                                    height: `${orientation == "horizontal" ? screenHeight : screenWidth}`,
+                            }}> 
+                                <p style={{
+                                    transform: "translateX(30%)"
+                                }}>{orientation == "horizontal" ? screen?.["Height"] : screen?.["Width"]}"</p>
+                            </div>
+                            <div className="niche-display" style={{
+                                gridRow: "2",
+                                gridColumn: "2",
+                                alignSelf: "center",
+                                justifySelf: "center",
+                                marginRight: "1em",
+                                border: "1px solid black",
+                                padding: `${(totalNicheDepth / 4) * scalingFactor}px`,
+                                width: "fit-content"
+                            }}>
+                            </div>
+                            <div className="screen-height-label" style={{
+                                    display: "flex",
+                                    justifyContent: "center",
+                                    paddingLeft: `${(totalNicheDepth / 4) * scalingFactor}px`,
+                                    alignItems: "center",
+                                    borderLeft: "1px solid black",
+                                    height: `${orientation == "horizontal" ? screenHeight : screenWidth}`,
+                                }}><p style={{
+                                    transform: "translateX(30%)"
+                                }}>{orientation == "horizontal" ? screen?.["Height"] : screen?.["Width"]}"</p>
+                            </div>
+                            <div className="screen-width-label" style={{
                                 position: "absolute",
                                 display: "flex",
-                                transform: "translateX(-130%) translateY(-50%)",
+                                justifyContent: "center",
+                                alignItems: "center",
+                                borderBottom: "1px solid black",
+                                width: `${orientation == "horizontal" ? screenWidth : screenHeight}`,
+                                transform: `translateY(${orientation == "horizontal" ? -200 + (-(totalNicheDepth) * scalingFactor) 
+                                    : -250 - totalNicheDepth/4 * scalingFactor}%) translateX(0%)`,
                             }}>
-                                <p>Height: {orientation == "horizontal" ? screen?.["Height"] : screen?.["Width"]} (in)</p>
-                            </label>
-                        </div>
-                        <div className="screen-center-vertical" style={{
-                            gridColumn: "2",
-                            gridRow: "1/-1",
-                            height: "100%",
-                            width: "1px",
-                            backgroundColor: "black"
-                        }}>
-                            <label className="screen-width-label" style={{
+                                <p style={{
+                                    transform: "translateX(30%)"
+                                }}>{orientation == "horizontal" ? screen?.["Width"] : screen?.["Height"]}"</p>
+                            </div>
+                            {totalNicheDepth > 0 ? <div className="niche-depth-label" style={{
+                                position: "absolute",
+                                display: "flex",
+                                transform: "translateX(-130%) translateY(-60%)",
+                            }}><p>Niche: { (totalNicheDepth/4).toFixed(2)} (in)</p></div> : ""}
+                            <div className="diagram-display" style={{
+                                border: "2px solid black",
+                                height: `${orientation == "horizontal" ? screenHeight : screenWidth}`,
+                                width: `${orientation == "horizontal" ? screenWidth : screenHeight}`,
+                                display: "grid",
+                                gridTemplateColumns: "1fr auto 1fr",
+                                gridTemplateRows: "1fr auto 1fr"
+                            }}>
+                                <div className="screen-center-horizontal" ref={screenCenterRef} style={{
+                                    gridColumn: "1 / -1",
+                                    gridRow: "2",
+                                    height: "1px",
+                                    width: "100%",
+                                    backgroundColor: "black"
+                                }}/>
+                                <div className="screen-center-vertical" style={{
+                                    gridColumn: "2",
+                                    gridRow: "1/-1",
+                                    height: "100%",
+                                    width: "1px",
+                                    backgroundColor: "black"
+                                }}/>
+                                {mount ? <div className="mount" style={{
                                     position: "absolute",
-                                    display: "flex",
-                                    transform: "translateX(-60%) translateY(-250%)",
+                                    border: "1px solid blue",
+                                    alignSelf: "center",
+                                    justifySelf: "center",
+                                    width: `${mount["Width (in)"] * scalingFactor}px`,
+                                    height: `${mount["Height (in)"] * scalingFactor}px`,
+                                    zIndex: "-1"
+                                }}/> : ""}
+                                <div className="receptacle-niche" style={{
+                                    position: "absolute",
+                                    border: "1px dashed black",
+                                    alignSelf: "center",
+                                    justifySelf: "center",
+                                    padding: `${(receptacle["Depth (in)"] / 4) * scalingFactor}px`
                                 }}>
-                                    <p>Width: {orientation == "horizontal" ? screen?.["Width"] : screen?.["Height"]} (in)</p>
-                            </label>
-                        </div>
-                        {/* {mount ? <div className="mount" style={{
-                            position: "absolute",
-                            border: "1px solid blue",
-                            alignSelf: "center",
-                            justifySelf: "center",
-                            width: `${mount["Width (in)"] * scalingFactor}px`,
-                            height: `${mount["Height (in)"] * scalingFactor}px`,
-                            zIndex: "-1"
-                        }}/> : ""} */}
-                        <div className="receptacle-niche" style={{
-                            position: "absolute",
-                            border: "1px dashed black",
-                            alignSelf: "center",
-                            justifySelf: "center",
-                            padding: `${(receptacle["Depth (in)"] / 4) * scalingFactor}px`
-                        }}>
-                            <div className="receptacle" style={{
-                                border: "1px dashed black",
-                                width: `${receptacle["Width (in)"] * scalingFactor}px`,
-                                height: `${receptacle["Height (in)"] * scalingFactor}px`,
-                            }}/>
+                                    <div className="receptacle" style={{
+                                        border: "1px dashed black",
+                                        width: `${receptacle["Width (in)"] * scalingFactor}px`,
+                                        height: `${receptacle["Height (in)"] * scalingFactor}px`,
+                                    }}/>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </div> */}
             </div>
-            {/* <br/>
-            <label style={{
-                position: "absolute",
-                transform: 'translateY(0%) translateX(50%)',
-            }}>Floor</label> */}
         </div>   
     )
 }
