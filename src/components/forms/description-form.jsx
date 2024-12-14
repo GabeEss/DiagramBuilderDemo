@@ -19,7 +19,7 @@ function DescriptionForm() {
             <h4>Description</h4>
             <div className="description-form-item">
                 <label>Project Title </label>
-                <input type="text" maxLength={15} name="title" value={title} onChange={(e) => setTitle(e.target.value)}/>
+                <input type="text" maxLength={25} name="title" value={title} onChange={(e) => setTitle(e.target.value)}/>
             </div>
             <div className="description-form-item">
                 <label>Designer </label>

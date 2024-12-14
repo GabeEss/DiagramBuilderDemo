@@ -14,29 +14,53 @@ function DescriptionDisplay() {
     } = useContext(EquipmentContext);
 
     return(
-        <div className="description-display" style={{
-            
-        }}>
-            <div className="description-item">
-                <label>Title: </label>
-                <p>{title}</p>
+        <div className="description-container">
+            <div className="description-title-container">
+                <div className="description-title-item">Logo</div>
+                <div className="description-title-item">Company Address</div>
+                <div className="description-title-item">
+                    <label>Description: </label>
+                    <p>{title}</p>
+                </div>
             </div>
-            <div className="description-item">
-                <label>Designer: </label>
-                <p>{designer}</p>
-            </div>
-            <div className="description-item">
-                <label>Department: </label>
-                <p>{department}</p>
-            </div>
-            <div className="description-item">
-                <label>Screen Size (inches): </label>
-                <p>{screen?.['Screen Size'] || ""}</p>
-            </div>
-            <div className="description-item">
-                <label>Date: </label>
-                <p>{date}</p>
-            </div>
+            <div className="description-display">
+                <div className="description-display-upper-layer">
+                    <div className="description-item">
+                        <p className="description-label" style={{
+                            borderRight: "1px solid black",
+                            borderBottom: "1px solid black",
+                        }}>Designer</p>
+                        <p className="description-text" style={{
+                            borderRight: "1px solid black"
+                        }}>{designer}</p>
+                    </div>
+                    <div className="description-item">
+                        <p className="description-label" style={{
+                            borderBottom: "1px solid black",
+                        }}>Screen Size (inches)</p>
+                        <p className="description-text">{screen?.['Screen Size'] || ""}</p>
+                    </div>
+                </div>
+                <div className="description-display-layer">
+                    <div className="description-item">
+                        <p className="description-label" style={{
+                            borderTop: "1px solid black",
+                            borderRight: "1px solid black",
+                            borderBottom: "1px solid black",
+                        }}>Date</p>
+                        <p className="description-text" style={{
+                            borderRight: "1px solid black",
+                        }}>{date}</p>
+                    </div>
+                    <div className="description-item">
+                        <p className="description-label" style={{
+                            borderTop: "1px solid black",
+                            borderBottom: "1px solid black"
+                        }}>Department</p>
+                        <p className="description-text">{department}</p>
+                    </div>
+                </div>
+            </div> 
         </div>
     )
     

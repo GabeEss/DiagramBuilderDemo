@@ -22,11 +22,11 @@ function ReceptacleDimensionDisplay() {
                     <p>{Number(receptacle?.['Height (in)']) || 0}"</p>
                 </div>
                 <div className='receptacle-dimension-item'>
-                    <label>Height</label>
+                    <label>Width</label>
                     <p>{Number(receptacle?.['Width (in)']) || 0}"</p>
                 </div>
                 <div className='receptacle-dimension-item'>
-                    <label>Height</label>
+                    <label>Depth</label>
                     <p>{Number(receptacle?.['Depth (in)'])|| 0}"</p>
                 </div>
             </div>

@@ -208,18 +208,6 @@
     background-color: rgb(1, 1, 219);
 }
 
-/*  DESCRIPTION STYLING FOR GRID POSITION CHECK diagram-display.jsx */
-
-.description-display {
-    /* border: 1px solid #ccc; */
-    /* border-radius: 8px; */
-    /* box-shadow: 0 4px 8px rgba(0, 0, 0, .1); */
-    /* padding: .5em; */
-    margin-bottom: 1em;
-    display: flex;
-    flex-direction: column;
-}
-
 .form-item input {
     /* font-size: 1em;
     transition: background-color .2s ease;
@@ -295,6 +283,11 @@
 
 /* RECEPTACLE DIMENSIONS DISPLAY */
 
+.receptacle-description-container {
+    display: flex;
+    flex-direction: column;
+}
+
 .receptacle-dimension-container {
     display: flex;
     flex-direction: row;
@@ -362,6 +355,82 @@
     margin-top: .4em;
     background-color: white;
     border-radius: 2px;
+}
+
+/* DESCRIPTION DISPLAY */
+
+.description-container {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    border: 1px solid #505050;
+    border-radius: 3px;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    padding-left: .5em;
+    padding-right: .5em;
+    margin-bottom: .5em;
+}
+
+.description-title-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: .5em;
+}
+
+.description-title-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.description-title-item label {
+    font-size: .8em;
+    padding-top: .3em;
+    padding-bottom: .3em;
+}
+
+.description-title-item p {
+    font-size: .9em;
+    font-weight: bold;
+}
+
+.description-display {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #505050;
+    border-radius: 3px;
+}
+
+.description-display-upper-layer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.description-display-layer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.description-item {
+    /* Check description-display.jsx for border lines */
+    width: 100%;
+}
+
+.description-label {
+    /* Check description-display.jsx  for border lines */
+    background-color: rgb(255, 207, 117);
+    padding: .3em;
+    width: 100%;
+    font-weight: bold;
+}
+
+.description-text {
+    /* Check description-display.jsx for border lines*/
+    padding: .3em;
+    font-size: .9em;
 }
 
 /* FOR PDF CONTAINER AND DIAGRAM CONTAINER CHECK INSIDE diagram-display.jsx*/
