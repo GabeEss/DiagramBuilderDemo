@@ -100,6 +100,7 @@ function DiagramDisplay({pdfContainerRef}) {
                     alignItems: "center",
                     paddingRight: "2em",
                 }}>
+                    {/* SVG DIAGRAM */}
                     <svg
                         width={(Number(screenWidth) + totalNicheDepth/2 * scalingFactor) + SVG_ADJUST || "100%"}
                         height={"100%"}
@@ -114,7 +115,7 @@ function DiagramDisplay({pdfContainerRef}) {
                             width={(Number(screenWidth) + totalNicheDepth/2 * scalingFactor)}
                             stroke="black"
                             fill="none"
-                            strokeWidth={2}
+                            strokeWidth={1}
                         />
                         {/* Screen Rectangle */}
                         <rect
@@ -124,7 +125,17 @@ function DiagramDisplay({pdfContainerRef}) {
                             height={screenHeight}
                             stroke="black" 
                             fill="none" 
-                            strokeWidth={2}/>
+                            strokeWidth={4}/>
+                        {/* Receptacle Niche Rectangle */}
+                        <rect
+                            x={((Number(screenWidth) + totalNicheDepth/2 * scalingFactor) - (Number(receptacle["Width (in)"]) + Number(receptacle["Depth (in)"])) * scalingFactor) / 2 + SVG_ADJUST/2}
+                            y={((Number(screenHeight) + totalNicheDepth/2 * scalingFactor) - (Number(receptacle["Height (in)"]) + Number(receptacle["Depth (in)"])) * scalingFactor) / 2 + SVG_ADJUST/2}
+                            width={`${(Number(receptacle["Width (in)"]) + Number(receptacle["Depth (in)"])) * scalingFactor}`}
+                            height={`${(Number(receptacle["Height (in)"]) + Number(receptacle["Depth (in)"])) * scalingFactor}`}
+                            stroke="black"
+                            fill="none"
+                            strokeDasharray="4, 2"
+                        />
                         {/* Receptacle Rectangle */}
                         <rect
                             x={((Number(screenWidth) + totalNicheDepth/2 * scalingFactor) - receptacle["Width (in)"] * scalingFactor) / 2 + SVG_ADJUST/2}
@@ -133,6 +144,7 @@ function DiagramDisplay({pdfContainerRef}) {
                             height={`${receptacle["Height (in)"] * scalingFactor}`}
                             stroke="black"
                             fill="none"
+                            strokeDasharray="4, 2"
                         />
                         {/* Floor */}
                         <line x1={FLOOR_LINE_X} 
