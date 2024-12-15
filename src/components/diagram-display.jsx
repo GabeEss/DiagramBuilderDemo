@@ -30,6 +30,8 @@ function DiagramDisplay({pdfContainerRef}) {
 
     // Adjusts the position of the floor line along the x axis
     const FLOOR_LINE_X = 80;
+    // Adjusts the niche width and screen along the y axis
+    const FLOOR_LINE_Y = 30;
 
     // Adjust the scalingFactor context
     const adjustScale = () => {
@@ -126,6 +128,87 @@ function DiagramDisplay({pdfContainerRef}) {
                             stroke="black" 
                             fill="none" 
                             strokeWidth={4}/>
+                        {/* Niche Width Label */}
+                        <text>
+
+                        </text>
+                        {/* Niche Width Line */}
+                        {niche === "flat" ? "" : 
+                            <line
+                                x1={SVG_ADJUST/2} 
+                                x2={(Number(screenWidth) + totalNicheDepth/2 * scalingFactor) + SVG_ADJUST/2}
+                                y1={(Number(screenWidth) + totalNicheDepth/2 * scalingFactor) + FLOOR_LINE_Y}
+                                y2={(Number(screenWidth) + totalNicheDepth/2 * scalingFactor) + FLOOR_LINE_Y}
+                                stroke="black"
+                                fill="none"
+                                strokeWidth={.5}/>
+                        }
+                        
+                        {/* Niche Height Label */}
+                        {/* Niche Height Line */}
+                        {niche === "flat" ? "" : 
+                            <line
+                                x1={FLOOR_LINE_X + 20} 
+                                x2={FLOOR_LINE_X + 20} 
+                                y1={SVG_ADJUST/2} 
+                                y2={SVG_ADJUST/2 + (Number(screenHeight) + totalNicheDepth/2 * scalingFactor)}
+                                stroke="black"
+                                fill="none"
+                                strokeWidth={.5}/>
+                        }
+
+                        {/* Screen Height Label */}
+                        {/* Screen Height Line */}
+                        <line
+                            x1={totalNicheDepth/2 * scalingFactor + Number(screenWidth) + SVG_ADJUST - FLOOR_LINE_X - 20}
+                            x2={totalNicheDepth/2 * scalingFactor + Number(screenWidth) + SVG_ADJUST - FLOOR_LINE_X - 20}
+                            y1={`${((Number(screenHeight) + totalNicheDepth/2 * scalingFactor) - Number(screenHeight)) / 2 + SVG_ADJUST/2}`} 
+                            y2={((Number(screenHeight) + totalNicheDepth/2 * scalingFactor) - Number(screenHeight)) / 2 + SVG_ADJUST/2 + Number(screenHeight)}
+                            stroke="black"
+                            fill="none"
+                            strokeWidth={.5}
+                        />
+                        {/* Screen Width Label */}
+                        {/* Screen Width Line */}
+                        <line
+                                x1={SVG_ADJUST/2 + totalNicheDepth/2 * scalingFactor} 
+                                x2={Number(screenWidth) + SVG_ADJUST/2}
+                                y1={SVG_ADJUST/2-FLOOR_LINE_Y}
+                                y2={SVG_ADJUST/2-FLOOR_LINE_Y}
+                                stroke="black"
+                                fill="none"
+                                strokeWidth={.5}/>
+                        
+                        {/* Intended Screen Position Label */}
+                        <text>
+
+                        </text>
+                        {/* Central Screen LineX */}
+                        <line
+                            x1={FLOOR_LINE_X}
+                            x2={(Number(screenWidth) + totalNicheDepth/2 * scalingFactor) + SVG_ADJUST - FLOOR_LINE_X}
+                            y1={((totalNicheDepth/2 * scalingFactor + Number(screenHeight))/2 + SVG_ADJUST/2)}
+                            y2={((totalNicheDepth/2 * scalingFactor + Number(screenHeight))/2 + SVG_ADJUST/2)}
+                            stroke="black"
+                            fill="none"
+                            strokeWidth={1}
+                            strokeDasharray="6, 10"
+                        />
+                        {/* Central Screen LineY */}
+                        <line
+                            x1={((Number(screenWidth) + totalNicheDepth/2 * scalingFactor) + SVG_ADJUST) / 2}
+                            x2={((Number(screenWidth) + totalNicheDepth/2 * scalingFactor) + SVG_ADJUST) / 2}
+                            y1="20%"
+                            y2="80%"
+                            stroke="black"
+                            fill="none"
+                            strokeWidth={1}
+                            strokeDasharray="6, 10"
+                        />
+                        {/* Receptacle Label */}
+                        <text>
+                            
+                        </text>
                         {/* Receptacle Niche Rectangle */}
                         <rect
                             x={((Number(screenWidth) + totalNicheDepth/2 * scalingFactor) - (Number(receptacle["Width (in)"]) + Number(receptacle["Depth (in)"])) * scalingFactor) / 2 + SVG_ADJUST/2}
