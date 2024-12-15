@@ -171,8 +171,8 @@ function DiagramDisplay({pdfContainerRef}) {
                         {/* Screen Width Label */}
                         {/* Screen Width Line */}
                         <line
-                                x1={SVG_ADJUST/2 + totalNicheDepth/2 * scalingFactor} 
-                                x2={Number(screenWidth) + SVG_ADJUST/2}
+                                x1={((totalNicheDepth/4 * scalingFactor)) + SVG_ADJUST/2}
+                                x2={Number(screenWidth) + ((totalNicheDepth/4 * scalingFactor)) + SVG_ADJUST/2}
                                 y1={SVG_ADJUST/2-FLOOR_LINE_Y}
                                 y2={SVG_ADJUST/2-FLOOR_LINE_Y}
                                 stroke="black"
