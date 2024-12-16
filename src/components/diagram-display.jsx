@@ -33,6 +33,11 @@ function DiagramDisplay({pdfContainerRef}) {
     // Adjusts the niche width and screen along the y axis
     const FLOOR_LINE_Y = 30;
 
+
+    // Receptacle label coordinates
+    const RECEPTACLE_LABEL_X = 340;
+    const RECEPTACLE_LABEL_Y = 40;
+
     // Adjust the scalingFactor context
     const adjustScale = () => {
         // Get the max dimension of the current screen
@@ -237,9 +242,27 @@ function DiagramDisplay({pdfContainerRef}) {
                             strokeWidth={1}
                             strokeDasharray="6, 10"
                         />
+                        {/* Receptacle Label Line */}
+                        <line
+                            x1={((Number(screenWidth) + totalNicheDepth/2 * scalingFactor) - (Number(receptacle["Width (in)"]) + Number(receptacle["Depth (in)"])) * scalingFactor) / 2 + SVG_ADJUST/2 
+                                + ((Number(receptacle["Width (in)"]) + Number(receptacle["Depth (in)"])) * scalingFactor) / 4}
+                            x2={RECEPTACLE_LABEL_X}
+                            y1={((Number(screenHeight) + totalNicheDepth/2 * scalingFactor) - (Number(receptacle["Height (in)"]) + Number(receptacle["Depth (in)"])) * scalingFactor) / 2 + SVG_ADJUST/2 
+                                + ((Number(receptacle["Height (in)"]) + Number(receptacle["Depth (in)"])) * scalingFactor)/4}
+                            y2={RECEPTACLE_LABEL_Y}
+                            stroke="black"
+                            fill="none"
+                            strokeWidth={1}
+                        />    
                         {/* Receptacle Label */}
-                        <text>
-                            
+                        <text
+                            x={RECEPTACLE_LABEL_X - 10}
+                            y={RECEPTACLE_LABEL_Y - 10}
+                            fill="black"
+                            textAnchor="middle"
+                            fontSize={14}
+                        >
+                            Install recessed receptacle box
                         </text>
                         {/* Receptacle Niche Rectangle */}
                         <rect
