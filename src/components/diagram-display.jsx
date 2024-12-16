@@ -135,8 +135,12 @@ function DiagramDisplay({pdfContainerRef}) {
                             <line
                                 x1={SVG_ADJUST/2} 
                                 x2={(Number(screenWidth) + totalNicheDepth/2 * scalingFactor) + SVG_ADJUST/2}
-                                y1={(Number(screenWidth) + totalNicheDepth/2 * scalingFactor) + FLOOR_LINE_Y}
-                                y2={(Number(screenWidth) + totalNicheDepth/2 * scalingFactor) + FLOOR_LINE_Y}
+                                y1={orientation === "horizontal" ? (Number(screenWidth) + totalNicheDepth/2 * scalingFactor) + FLOOR_LINE_Y 
+                                    : (Number(screenHeight) + totalNicheDepth/2 * scalingFactor) + SVG_ADJUST/2 + FLOOR_LINE_Y
+                                }
+                                y2={orientation === "horizontal" ? (Number(screenWidth) + totalNicheDepth/2 * scalingFactor) + FLOOR_LINE_Y 
+                                    : (Number(screenHeight) + totalNicheDepth/2 * scalingFactor) + SVG_ADJUST/2 + FLOOR_LINE_Y
+                                }
                                 stroke="black"
                                 fill="none"
                                 strokeWidth={.5}/>
