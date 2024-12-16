@@ -25,6 +25,10 @@ function DiagramDisplay({pdfContainerRef}) {
     const [screenHeight, setScreenHeight] = useState('auto');
     const [screenWidth, setScreenWidth] = useState('auto');
 
+    // Stores the mount or media player, depending on which is larger
+    const [mediaOrMountHeight, setMediaOrMountHeight] = useState("");
+    const [mediaOrMountWidth, setMediaOrMountWidth] = useState("");
+
     // Adjusts the SVG dimensions beyond the dimensions of the niche + screen
     const SVG_ADJUST = 250;
 
@@ -83,6 +87,17 @@ function DiagramDisplay({pdfContainerRef}) {
                 setScreenHeight(`${screen['Width'] * scalingFactor}`);
                 setScreenWidth(`${screen['Height'] * scalingFactor}`);
             }
+
+            // Find out if the media player or mount has the largest dimension
+            const maxMPDimension = Math.max(mediaPlayer?.["Height"], mediaPlayer?.["Width"]);
+            const maxMount = Math.max(mount?.["Height (in)"], mount?.["Width (in)"]);
+            if(maxMount > maxMPDimension) {
+                setMediaOrMountHeight(mount?.["Height (in)"]);
+                setMediaOrMountWidth(mount?.["Width (in)"]);
+            } else {
+                setMediaOrMountHeight(mediaPlayer?.["Height"]);
+                setMediaOrMountWidth(mediaPlayer?.["Width"]);
+            } 
             
         } else setScreenHeight('auto');
     }, [screen, distanceFloor, niche, nicheDepth, mount, mediaPlayer]);
@@ -304,6 +319,19 @@ function DiagramDisplay({pdfContainerRef}) {
                             fill="none"
                             strokeDasharray="4, 2"
                         />
+                        {/* Mount or Media Player Rectangle, only render if smaller than screen dimensions */}
+                        {Number(mediaOrMountHeight) < screen?.["Height"] && Number(mediaOrMountWidth) < screen?.["Width"] ?
+                            <rect
+                                x={((Number(screenWidth) + totalNicheDepth/2 * scalingFactor) - ((Number(mediaOrMountWidth)) * scalingFactor)) /2 + SVG_ADJUST/2}
+                                y={((Number(screenHeight) + totalNicheDepth/2 * scalingFactor) - ((Number(mediaOrMountHeight)) * scalingFactor)) / 2 + SVG_ADJUST/2}
+                                width={mediaOrMountWidth * scalingFactor}
+                                height={mediaOrMountHeight * scalingFactor}
+                                stroke="black"
+                                fill="none"
+                                strokeDasharray="4, 2"  
+                            />
+                            : ""
+                        }
                         {/* Floor */}
                         <line x1={FLOOR_LINE_X} 
                             y1={((Number(screenHeight) + totalNicheDepth/2 * scalingFactor) + SVG_ADJUST)}
