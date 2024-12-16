@@ -35,8 +35,12 @@ function DiagramDisplay({pdfContainerRef}) {
 
 
     // Receptacle label coordinates
-    const RECEPTACLE_LABEL_X = 340;
+    const RECEPTACLE_LABEL_X = 250;
     const RECEPTACLE_LABEL_Y = 40;
+
+    // Screen center label coordinates
+    const SCREEN_CENTER_LABEL_X = 350;
+    const SCREEN_CENTER_LABEL_Y = 20;
 
     // Adjust the scalingFactor context
     const adjustScale = () => {
@@ -215,10 +219,27 @@ function DiagramDisplay({pdfContainerRef}) {
                                 stroke="black"
                                 fill="none"
                                 strokeWidth={.5}/>
-                        
+                        {/* Intended Screen Position Label Line */}
+                        <line
+                            x1={((Number(screenWidth) + totalNicheDepth/2 * scalingFactor) - (Number(receptacle["Width (in)"]) + Number(receptacle["Depth (in)"])) * scalingFactor) / 2 + SVG_ADJUST/2 
+                                + ((Number(receptacle["Width (in)"]) + Number(receptacle["Depth (in)"])) * scalingFactor) / 2}
+                            x2={SCREEN_CENTER_LABEL_X}
+                            y1={((Number(screenHeight) + totalNicheDepth/2 * scalingFactor) - (Number(receptacle["Height (in)"]) + Number(receptacle["Depth (in)"])) * scalingFactor) / 2 + SVG_ADJUST/2 
+                                + ((Number(receptacle["Height (in)"]) + Number(receptacle["Depth (in)"])) * scalingFactor)/ 2}
+                            y2={SCREEN_CENTER_LABEL_Y}
+                            stroke="black"
+                            fill="none"
+                            strokeWidth={1}
+                        />    
                         {/* Intended Screen Position Label */}
-                        <text>
-
+                        <text
+                            x={SCREEN_CENTER_LABEL_X - 10}
+                            y={SCREEN_CENTER_LABEL_Y - 10}
+                            fill="black"
+                            textAnchor="middle"
+                            fontSize={14}
+                        >
+                            Intended screen position
                         </text>
                         {/* Central Screen LineX */}
                         <line
@@ -244,8 +265,7 @@ function DiagramDisplay({pdfContainerRef}) {
                         />
                         {/* Receptacle Label Line */}
                         <line
-                            x1={((Number(screenWidth) + totalNicheDepth/2 * scalingFactor) - (Number(receptacle["Width (in)"]) + Number(receptacle["Depth (in)"])) * scalingFactor) / 2 + SVG_ADJUST/2 
-                                + ((Number(receptacle["Width (in)"]) + Number(receptacle["Depth (in)"])) * scalingFactor) / 4}
+                            x1={((Number(screenWidth) + totalNicheDepth/2 * scalingFactor) - receptacle["Width (in)"] * scalingFactor) / 2 + SVG_ADJUST/2}
                             x2={RECEPTACLE_LABEL_X}
                             y1={((Number(screenHeight) + totalNicheDepth/2 * scalingFactor) - (Number(receptacle["Height (in)"]) + Number(receptacle["Depth (in)"])) * scalingFactor) / 2 + SVG_ADJUST/2 
                                 + ((Number(receptacle["Height (in)"]) + Number(receptacle["Depth (in)"])) * scalingFactor)/4}
