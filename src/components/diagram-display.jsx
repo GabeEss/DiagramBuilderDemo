@@ -92,11 +92,23 @@ function DiagramDisplay({pdfContainerRef}) {
             const maxMPDimension = Math.max(mediaPlayer?.["Height"], mediaPlayer?.["Width"]);
             const maxMount = Math.max(mount?.["Height (in)"], mount?.["Width (in)"]);
             if(maxMount > maxMPDimension) {
-                setMediaOrMountHeight(mount?.["Height (in)"]);
-                setMediaOrMountWidth(mount?.["Width (in)"]);
+                if(orientation === "horizontal") {
+                    setMediaOrMountHeight(mount?.["Height (in)"]);
+                    setMediaOrMountWidth(mount?.["Width (in)"]);
+                } else {
+                    setMediaOrMountHeight(mount?.["Width (in)"]);
+                    setMediaOrMountWidth(mount?.["Height (in)"]);
+                }
+                
             } else {
-                setMediaOrMountHeight(mediaPlayer?.["Height"]);
-                setMediaOrMountWidth(mediaPlayer?.["Width"]);
+                if(orientation === "horizontal") {
+                    setMediaOrMountHeight(mediaPlayer?.["Height"]);
+                    setMediaOrMountWidth(mediaPlayer?.["Width"]);
+                } else {
+                    setMediaOrMountHeight(mediaPlayer?.["Width"]);
+                    setMediaOrMountWidth(mediaPlayer?.["Height"]);
+                }
+                
             } 
             
         } else setScreenHeight('auto');
@@ -319,8 +331,8 @@ function DiagramDisplay({pdfContainerRef}) {
                             fill="none"
                             strokeDasharray="4, 2"
                         />
-                        {/* Mount or Media Player Rectangle, only render if smaller than screen dimensions */}
-                        {Number(mediaOrMountHeight) < screen?.["Height"] && Number(mediaOrMountWidth) < screen?.["Width"] ?
+                        {/* Mount or Media Player Horizontal Rectangle, only render if smaller than screen dimensions */}
+                        {orientation === "horizontal" && Number(mediaOrMountHeight) < screen?.["Height"] && Number(mediaOrMountWidth) < screen?.["Width"] ?
                             <rect
                                 x={((Number(screenWidth) + totalNicheDepth/2 * scalingFactor) - ((Number(mediaOrMountWidth)) * scalingFactor)) /2 + SVG_ADJUST/2}
                                 y={((Number(screenHeight) + totalNicheDepth/2 * scalingFactor) - ((Number(mediaOrMountHeight)) * scalingFactor)) / 2 + SVG_ADJUST/2}
@@ -328,7 +340,20 @@ function DiagramDisplay({pdfContainerRef}) {
                                 height={mediaOrMountHeight * scalingFactor}
                                 stroke="black"
                                 fill="none"
-                                strokeDasharray="4, 2"  
+                                strokeDasharray="20, 10"  
+                            />
+                            : ""
+                        }
+                        {/* Mount or Media Player Vertical Rectangle, only render if smaller than screen dimensions */}
+                        {orientation === "vertical" && Number(mediaOrMountHeight) < screen?.["Width"] && Number(mediaOrMountWidth) < screen?.["Height"] ?
+                            <rect
+                                x={((Number(screenWidth) + totalNicheDepth/2 * scalingFactor) - ((Number(mediaOrMountWidth)) * scalingFactor)) /2 + SVG_ADJUST/2}
+                                y={((Number(screenHeight) + totalNicheDepth/2 * scalingFactor) - ((Number(mediaOrMountHeight)) * scalingFactor)) / 2 + SVG_ADJUST/2}
+                                width={mediaOrMountWidth * scalingFactor}
+                                height={mediaOrMountHeight * scalingFactor}
+                                stroke="black"
+                                fill="none"
+                                strokeDasharray="20, 10"  
                             />
                             : ""
                         }
