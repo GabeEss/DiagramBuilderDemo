@@ -37,6 +37,7 @@ const DownloadButton = ({ pdfContainerRef }) => {
                 finalImgWidth = finalImgHeight * aspectRatio;
             }
 
+            // Centers the image
             const marginX = (pdfWidth - finalImgWidth) / 2;
             const marginY = (pdfHeight - finalImgHeight) / 2;
 

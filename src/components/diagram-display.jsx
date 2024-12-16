@@ -129,9 +129,7 @@ function DiagramDisplay({pdfContainerRef}) {
                             fill="none" 
                             strokeWidth={4}/>
                         {/* Niche Width Label */}
-                        <text>
-
-                        </text>
+                        
                         {/* Niche Width Line */}
                         {niche === "flat" ? "" : 
                             <line
@@ -145,6 +143,13 @@ function DiagramDisplay({pdfContainerRef}) {
                         }
                         
                         {/* Niche Height Label */}
+                        {niche === "flat" ? "" : <text 
+                            x={FLOOR_LINE_X - 20} 
+                            y={((totalNicheDepth/2 * scalingFactor + Number(screenHeight)))/2 + SVG_ADJUST/2 - 5}
+                            textAnchor="middle"
+                            fontSize={14} 
+                            fill="black">{(Number(screen?.['Height']) + (totalNicheDepth/2)).toFixed(2) || 0}"</text>
+                        }
                         {/* Niche Height Line */}
                         {niche === "flat" ? "" : 
                             <line
@@ -158,6 +163,12 @@ function DiagramDisplay({pdfContainerRef}) {
                         }
 
                         {/* Screen Height Label */}
+                        <text 
+                            x={totalNicheDepth/2 * scalingFactor + Number(screenWidth) + SVG_ADJUST - FLOOR_LINE_X + 20}
+                            y={((totalNicheDepth/2 * scalingFactor + Number(screenHeight)))/2 + SVG_ADJUST/2 - 5}
+                            textAnchor="middle"
+                            fontSize={14} 
+                            fill="black">{Number(screen?.['Height']).toFixed(2)}"</text>
                         {/* Screen Height Line */}
                         <line
                             x1={totalNicheDepth/2 * scalingFactor + Number(screenWidth) + SVG_ADJUST - FLOOR_LINE_X - 20}
@@ -246,14 +257,14 @@ function DiagramDisplay({pdfContainerRef}) {
                         {/* Floor line measurement label */}
                         <text 
                             x={FLOOR_LINE_X - 30} 
-                            y={((totalNicheDepth/2 * scalingFactor + Number(screenHeight)))/2 + SVG_ADJUST/2}
+                            y={((totalNicheDepth/2 * scalingFactor + Number(screenHeight)))/2 + SVG_ADJUST/2 + 60}
                             textAnchor="middle"
                             fontSize={14} 
                             fill="black">{(distanceFloor + (totalNicheDepth/4)).toFixed(2)}"</text>
                         {/* Center line label */}
                         <text 
                             x={FLOOR_LINE_X - 30} 
-                            y={((totalNicheDepth/2 * scalingFactor + Number(screenHeight)))/2 + SVG_ADJUST/2 + 10}
+                            y={((totalNicheDepth/2 * scalingFactor + Number(screenHeight)))/2 + SVG_ADJUST/2 + 70}
                             textAnchor="middle"
                             fontSize={14}
                             fill="black">
@@ -263,7 +274,7 @@ function DiagramDisplay({pdfContainerRef}) {
                         {/* Floor line label */}
                         <text 
                             x={FLOOR_LINE_X - 40} 
-                            y={((totalNicheDepth/2 * scalingFactor + Number(screenHeight))) + 200}
+                            y={((totalNicheDepth/2 * scalingFactor + Number(screenHeight))) + 240}
                             textAnchor="middle"
                             fontSize={14} 
                             fill="black">Floor Line
