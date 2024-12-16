@@ -129,7 +129,15 @@ function DiagramDisplay({pdfContainerRef}) {
                             fill="none" 
                             strokeWidth={4}/>
                         {/* Niche Width Label */}
-                        
+                        {niche === "flat" ? "" : <text 
+                            x={((Number(screenWidth) + totalNicheDepth/2 * scalingFactor) + SVG_ADJUST) / 2}
+                            y={orientation === "horizontal" ? (Number(screenWidth) + totalNicheDepth/2 * scalingFactor) + FLOOR_LINE_Y + 20
+                                : (Number(screenHeight) + totalNicheDepth/2 * scalingFactor) + SVG_ADJUST/2 + FLOOR_LINE_Y + 20}
+                            textAnchor="middle"
+                            fontSize={14} 
+                            fill="black">{orientation === "horizontal" ? (Number(screen?.['Width']) + (totalNicheDepth/2)).toFixed(2) 
+                                : (Number(screen?.['Height']) + (totalNicheDepth/2)).toFixed(2)}"</text>
+                        }
                         {/* Niche Width Line */}
                         {niche === "flat" ? "" : 
                             <line
@@ -209,8 +217,6 @@ function DiagramDisplay({pdfContainerRef}) {
                         </text>
                         {/* Central Screen LineX */}
                         <line
-                            // x1={FLOOR_LINE_X}
-                            // x2={(Number(screenWidth) + totalNicheDepth/2 * scalingFactor) + SVG_ADJUST - FLOOR_LINE_X}
                             x1="20%"
                             x2="80%"
                             y1={((totalNicheDepth/2 * scalingFactor + Number(screenHeight))/2 + SVG_ADJUST/2)}
