@@ -6,7 +6,17 @@ import jsPDF from 'jspdf';
 const DownloadButton = ({ pdfContainerRef }) => {
     const handleClick = () => {
         const input = pdfContainerRef.current;
-        html2canvas(input).then((canvas) => {
+        html2canvas(input, {
+            useCORS: true,
+            allowTaint: true,
+            logging: true,
+            onclone: (document) => {
+                const svgs = document.querySelectorAll('svg');
+                svgs.forEach((svg) => {
+                    svg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+                });
+            }
+        }).then((canvas) => {
             const imgData = canvas.toDataURL('image/png');
             const pdf = new jsPDF('p', 'mm', 'a4');
             const pdfWidth = pdf.internal.pageSize.getWidth();
@@ -18,11 +28,12 @@ const DownloadButton = ({ pdfContainerRef }) => {
 
             let finalImgWidth, finalImgHeight;
 
-            if (imgWidth > imgHeight) {
-                finalImgWidth = pdfWidth - 20; // Adjust for margins
+            // This adjusts the scaling for the image on the pdf
+            if (aspectRatio > 1) {
+                finalImgWidth = pdfWidth - 60;
                 finalImgHeight = finalImgWidth / aspectRatio;
             } else {
-                finalImgHeight = pdfHeight - 20; // Adjust for margins
+                finalImgHeight = pdfHeight - 60;
                 finalImgWidth = finalImgHeight * aspectRatio;
             }
 
@@ -30,7 +41,9 @@ const DownloadButton = ({ pdfContainerRef }) => {
             const marginY = (pdfHeight - finalImgHeight) / 2;
 
             pdf.addImage(imgData, 'PNG', marginX, marginY, finalImgWidth, finalImgHeight);
-            pdf.save('download.pdf');
+            pdf.save('diagram.pdf');
+        }).catch((error) => {
+            console.error('Error generating PDF:', error);
         });
     };
 
