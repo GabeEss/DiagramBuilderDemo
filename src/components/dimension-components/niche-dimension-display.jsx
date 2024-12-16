@@ -13,6 +13,7 @@ function NicheDimensionDisplay() {
 
     const {
         totalNicheDepth,
+        orientation,
         minDistanceFloor
     } = useContext(ConfigurationContext);
 
@@ -21,11 +22,11 @@ function NicheDimensionDisplay() {
             <h3 className='dimension-display-header'>Niche Dimensions</h3>
             <div className='dimension-display-item'>
                 <label>Height</label>
-                <p>{(Number(screen?.['Height']) + (totalNicheDepth/2)).toFixed(2) || 0}"</p>
+                <p>{orientation === "horizontal" ? (Number(screen?.['Height']) + (totalNicheDepth/2)).toFixed(2) : (Number(screen?.['Width']) + (totalNicheDepth/2)).toFixed(2)}"</p>
             </div>
             <div className='dimension-display-item'>
                 <label>Width</label>
-                <p>{(Number(screen?.['Width']) + (totalNicheDepth/2)).toFixed(2) || 0}"</p>
+                <p>{orientation === "horizontal" ? (Number(screen?.['Width']) + (totalNicheDepth/2)).toFixed(2) : (Number(screen?.['Height']) + (totalNicheDepth/2)).toFixed(2)}"</p>
             </div>
             <div className='dimension-display-item'>
                 <label>Depth</label>

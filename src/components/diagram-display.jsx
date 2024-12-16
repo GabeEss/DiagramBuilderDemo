@@ -144,11 +144,12 @@ function DiagramDisplay({pdfContainerRef}) {
                         
                         {/* Niche Height Label */}
                         {niche === "flat" ? "" : <text 
-                            x={FLOOR_LINE_X - 20} 
+                            x={FLOOR_LINE_X - 10} 
                             y={((totalNicheDepth/2 * scalingFactor + Number(screenHeight)))/2 + SVG_ADJUST/2 - 5}
                             textAnchor="middle"
                             fontSize={14} 
-                            fill="black">{(Number(screen?.['Height']) + (totalNicheDepth/2)).toFixed(2) || 0}"</text>
+                            fill="black">{orientation === "horizontal" ? (Number(screen?.['Height']) + (totalNicheDepth/2)).toFixed(2) 
+                                : (Number(screen?.['Width']) + (totalNicheDepth/2)).toFixed(2)}"</text>
                         }
                         {/* Niche Height Line */}
                         {niche === "flat" ? "" : 
@@ -164,11 +165,12 @@ function DiagramDisplay({pdfContainerRef}) {
 
                         {/* Screen Height Label */}
                         <text 
-                            x={totalNicheDepth/2 * scalingFactor + Number(screenWidth) + SVG_ADJUST - FLOOR_LINE_X + 20}
+                            x={totalNicheDepth/2 * scalingFactor + Number(screenWidth) + SVG_ADJUST - FLOOR_LINE_X + 10}
                             y={((totalNicheDepth/2 * scalingFactor + Number(screenHeight)))/2 + SVG_ADJUST/2 - 5}
                             textAnchor="middle"
                             fontSize={14} 
-                            fill="black">{Number(screen?.['Height']).toFixed(2)}"</text>
+                            fill="black">{orientation === "horizontal" ? Number(screen?.['Height']).toFixed(2) 
+                                : Number(screen?.['Width']).toFixed(2)}""</text>
                         {/* Screen Height Line */}
                         <line
                             x1={totalNicheDepth/2 * scalingFactor + Number(screenWidth) + SVG_ADJUST - FLOOR_LINE_X - 20}
@@ -180,6 +182,13 @@ function DiagramDisplay({pdfContainerRef}) {
                             strokeWidth={.5}
                         />
                         {/* Screen Width Label */}
+                        <text 
+                            x={((totalNicheDepth/2 * scalingFactor) + Number(screenWidth) + SVG_ADJUST) / 2}
+                            y={SVG_ADJUST/2 - FLOOR_LINE_Y - 20}
+                            textAnchor="middle"
+                            fontSize={14} 
+                            fill="black">{orientation === "horizontal" ? Number(screen?.['Width']).toFixed(2) 
+                            : Number(screen?.['Height']).toFixed(2)}"</text>
                         {/* Screen Width Line */}
                         <line
                                 x1={((totalNicheDepth/4 * scalingFactor)) + SVG_ADJUST/2}
@@ -196,8 +205,10 @@ function DiagramDisplay({pdfContainerRef}) {
                         </text>
                         {/* Central Screen LineX */}
                         <line
-                            x1={FLOOR_LINE_X}
-                            x2={(Number(screenWidth) + totalNicheDepth/2 * scalingFactor) + SVG_ADJUST - FLOOR_LINE_X}
+                            // x1={FLOOR_LINE_X}
+                            // x2={(Number(screenWidth) + totalNicheDepth/2 * scalingFactor) + SVG_ADJUST - FLOOR_LINE_X}
+                            x1="20%"
+                            x2="80%"
                             y1={((totalNicheDepth/2 * scalingFactor + Number(screenHeight))/2 + SVG_ADJUST/2)}
                             y2={((totalNicheDepth/2 * scalingFactor + Number(screenHeight))/2 + SVG_ADJUST/2)}
                             stroke="black"

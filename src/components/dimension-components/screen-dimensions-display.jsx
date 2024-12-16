@@ -11,6 +11,7 @@ function ScreenDimensionDisplay() {
     const {
         totalNicheDepth,
         distanceFloor,
+        orientation
     } = useContext(ConfigurationContext);
 
     return(
@@ -18,11 +19,11 @@ function ScreenDimensionDisplay() {
                 <h3 className='dimension-display-header'>Screen Dimensions</h3>
                 <div className='dimension-display-item'>
                     <label>Height</label>
-                    <p>{Number(screen?.['Height']).toFixed(2)}"</p>
+                    <p>{orientation === "horizontal" ? Number(screen?.['Height']).toFixed(2) : Number(screen?.['Width']).toFixed(2)}"</p>
                 </div>
                 <div className='dimension-display-item'>
                     <label>Width</label>
-                    <p>{Number(screen?.['Width']).toFixed(2)}"</p>
+                    <p>{orientation === "horizontal" ? Number(screen?.['Width']).toFixed(2) : Number(screen?.['Height']).toFixed(2)}"</p>
                 </div>
                 <div className='dimension-display-item'>
                     <label>Floor Line</label>
